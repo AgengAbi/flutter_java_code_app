@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/features/home_page/constants/home_page_assets_constant.dart';
 import 'package:flutter_java_code_app/features/home_page/controllers/home_page_controller.dart';
+import 'package:flutter_java_code_app/features/home_page/view/components/menu_content.dart';
 import 'package:flutter_java_code_app/features/home_page/view/components/promo_content.dart';
 import 'package:flutter_java_code_app/shared/widgets/universal_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,11 +21,12 @@ class HomePageScreen extends StatelessWidget {
           // onSearchChanged: (value) => HomePageController.to.keyword(value),
         ),
         body: SmartRefresher(
-          controller: HomePageController.to.refreshController,
+          // ! bug on refresh
+          controller: HomePageController.to.homeRefreshController,
           // enablePullDown: true,
-          // onRefresh: HomePageController.to.onRefresh,
+          // onRefresh: HomePageController.to.onInit,
           // enablePullUp: HomePageController.to.canLoadMore.isTrue,
-          // onLoading: HomePageController.to.getListOfData,
+          // onLoading: HomePageController.to.onInit,
           // remove 'load failed' on bottom page
           // footer: CustomFooter(
           //   builder: (context, mode) {
@@ -42,8 +44,7 @@ class HomePageScreen extends StatelessWidget {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  // child: const MenuContent(),
-                  child: const Center(child: Text('Content')),
+                  child: const MenuContent(),
                 ),
               ],
             ),

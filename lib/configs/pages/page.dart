@@ -2,6 +2,7 @@ import 'package:flutter_java_code_app/configs/routes/route.dart';
 import 'package:flutter_java_code_app/features/get_location/bindings/get_location_binding.dart';
 import 'package:flutter_java_code_app/features/get_location/view/ui/get_location_screen.dart';
 import 'package:flutter_java_code_app/features/home_page/bindings/home_page_binding.dart';
+import 'package:flutter_java_code_app/features/home_page/sub_features/menu_details/view/ui/menu_details_screen.dart';
 import 'package:flutter_java_code_app/features/home_page/sub_features/promo_details/view/ui/promo_details_screen.dart';
 import 'package:flutter_java_code_app/features/main_page/bindings/main_page_binding.dart';
 import 'package:flutter_java_code_app/features/main_page/view/ui/main_page_screen.dart';
@@ -64,6 +65,13 @@ abstract class Pages {
       name: Routes.homePagePromoDetailsRoute,
       page: () => const PromoDetailScreen(),
       binding: HomePagePromoDetailsBinding(),
+    ),
+
+    // Menu Details
+    GetPage(
+      name: Routes.homePageMenuDetailsRoute,
+      page: () => const MenuDetailsScreen(),
+      binding: HomePageMenuDetailsBinding(),
     ),
   ];
 }

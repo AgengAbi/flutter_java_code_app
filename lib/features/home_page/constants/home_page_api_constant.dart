@@ -4,4 +4,6 @@ class HomePageApiConstant {
   static String baseUrl = GlobalController.to.baseUrl;
   static String getAllPromos = 'promo/all';
   static String getPromoDetail = 'promo/detail';
+  static String getAllMenus = 'menu/all';
+  static String getMenuDetail = 'menu/detail';
 }
