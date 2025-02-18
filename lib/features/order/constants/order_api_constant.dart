@@ -1,3 +1,6 @@
+import 'package:flutter_java_code_app/shared/controllers/global_controllers.dart';
+
 class OrderApiConstant {
-  final String example = 'example';
+  static String baseUrl = GlobalController.to.baseUrl;
+  static String getOrders = '${baseUrl}order/user';
 }

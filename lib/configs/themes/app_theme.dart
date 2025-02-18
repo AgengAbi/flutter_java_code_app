@@ -36,10 +36,26 @@ class AppTheme {
         ),
       ),
       scaffoldBackgroundColor: ColorStyle.white,
-      // textTheme: const TextTheme(
-      //   bodyLarge: TextStyle(color: ColorStyle.primary),
-      //   bodyMedium: TextStyle(color: ColorStyle.primary),
-      // ),
     );
   }
+}
+
+class ElevatedButtonStyles {
+  static ButtonStyle primary = ElevatedButton.styleFrom(
+    backgroundColor: ColorStyle.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+      side: const BorderSide(color: ColorStyle.primary),
+    ),
+    foregroundColor: Colors.white,
+  );
+
+  static ButtonStyle secondary = ElevatedButton.styleFrom(
+    backgroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+      side: const BorderSide(color: ColorStyle.primary),
+    ),
+    foregroundColor: ColorStyle.primary,
+  );
 }
