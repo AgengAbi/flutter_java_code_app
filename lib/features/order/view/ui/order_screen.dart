@@ -17,8 +17,8 @@ class OrderScreen extends StatelessWidget {
           appBar: UniversalAppBar(
             showTabs: true,
             tabs: [
-              Tab(text: 'On going'),
-              Tab(text: 'History'),
+              Tab(text: 'Sedang Berjalan'),
+              Tab(text: 'Riwayat'),
             ],
           ),
           body: TabBarView(

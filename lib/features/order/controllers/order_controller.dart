@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/features/order/models/order_model.dart';
 import 'package:flutter_java_code_app/features/order/repositories/order_repository.dart';
+import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:get/get.dart';
 
 class OrderController extends GetxController {
@@ -15,8 +16,7 @@ class OrderController extends GetxController {
   RxList<OrderModel> onGoingOrders = <OrderModel>[].obs;
   RxList<OrderModel> historyOrders = <OrderModel>[].obs;
 
-  RxString onGoingOrderState = 'loading'.obs;
-  RxString orderHistoryState = 'loading'.obs;
+  final RxBool isLoading = true.obs;
 
   Rx<String> selectedCategory = 'all'.obs;
 
@@ -51,14 +51,12 @@ class OrderController extends GetxController {
     final result = await OrderRepository.fetchOrders();
     result.fold(
       (failure) {
-        onGoingOrderState('error');
-        orderHistoryState('error');
+        AppLogger.d('Failed to retrive data from API');
       },
       (orders) {
         onGoingOrders.value = getOngoingOrders(orders);
         historyOrders.value = getHistoryOrders(orders);
-        onGoingOrderState('success');
-        orderHistoryState('success');
+        isLoading(false);
       },
     );
   }

@@ -130,7 +130,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Total Payment:',
+                  'Total Bayar',
                   style: TextStyle(fontSize: 18),
                 ),
                 Text(
@@ -160,23 +160,27 @@ class OrderSummaryBottomSheet extends StatelessWidget {
                   isActive: isStep1Active,
                   title: 'Pesanan\nditerima',
                 ),
+                8.horizontalSpace,
                 Expanded(
                   child: Container(
                     height: 2,
                     color: Colors.grey,
                   ),
                 ),
+                8.horizontalSpace,
                 // Step 2
                 buildStep(
                   isActive: isStep2Active,
                   title: 'Silahkan\ndiambil',
                 ),
+                8.horizontalSpace,
                 Expanded(
                   child: Container(
                     height: 2,
                     color: Colors.grey,
                   ),
                 ),
+                8.horizontalSpace,
                 // Step 3
                 buildStep(
                   isActive: isStep3Active,

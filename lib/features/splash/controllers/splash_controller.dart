@@ -22,7 +22,6 @@ class SplashController extends GetxController {
 
     if (token != null) {
       AppLogger.d('User has logged in: ${user!.nama}');
-      AppLogger.d('Token: $token');
       Get.offAllNamed(Routes.mainPageRoute);
     } else {
       Get.offAllNamed(Routes.signInRoute);
