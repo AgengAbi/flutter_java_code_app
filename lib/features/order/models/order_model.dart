@@ -1,3 +1,4 @@
+import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:hive/hive.dart';
 
 part 'order_model.g.dart';
@@ -36,6 +37,7 @@ class OrderModel extends HiveObject {
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
+    AppLogger.d(json.toString());
     return OrderModel(
       idOrder: json['id_order'],
       noStruk: json['no_struk'],

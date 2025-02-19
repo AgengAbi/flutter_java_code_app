@@ -11,4 +11,5 @@ class SvgConstant {
   static const String icLevel = "${urlBasePath}ic_level.svg";
   static const String icTopping = "${urlBasePath}ic_topping.svg";
   static const String icNote = "${urlBasePath}ic_note.svg";
+  static const String icOrder = "${urlBasePath}ic_order.svg";
 }

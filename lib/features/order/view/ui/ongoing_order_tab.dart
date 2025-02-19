@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/configs/routes/route.dart';
 import 'package:flutter_java_code_app/features/order/controllers/order_controller.dart';
 import 'package:flutter_java_code_app/features/order/view/components/date_picker.dart';
 import 'package:flutter_java_code_app/features/order/view/components/dropdown_status.dart';
@@ -52,9 +53,13 @@ class OnGoingOrderTabView extends StatelessWidget {
                 itemBuilder: (context, index) => OrderItemCard(
                   order: OrderController.to.onGoingOrders[index],
                   onTap: () {
-                    // Get.toNamed(
-                    //   '${Routes.orderRoute}/${OrderController.to.onGoingOrders[index]['id_order']}',
-                    // );
+                    Get.toNamed(
+                      Routes.orderOrderDetailsRoute,
+                      arguments: {
+                        'orderId':
+                            OrderController.to.onGoingOrders[index].idOrder,
+                      },
+                    );
                   },
                   onOrderAgain: () {},
                 ),

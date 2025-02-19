@@ -37,7 +37,7 @@ class MainPageScreen extends StatelessWidget {
       }),
       bottomNavigationBar: Obx(() {
         return Padding(
-          padding: EdgeInsets.only(top: 12.h),
+          padding: EdgeInsets.zero,
           child: ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.r),

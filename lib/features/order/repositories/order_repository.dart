@@ -9,8 +9,6 @@ import 'package:flutter_java_code_app/utils/services/hive_service.dart';
 class OrderRepository {
   OrderRepository._();
 
-  var apiConstant = OrderApiConstant();
-
   static Future<Either<Failure, List<OrderModel>>> fetchOrders() async {
     try {
       final dio = DioService.dioCall(token: LocalStorageService.getAuthToken());

@@ -42,7 +42,7 @@ class AppTheme {
 
 class ElevatedButtonStyles {
   static ButtonStyle primary = ElevatedButton.styleFrom(
-    backgroundColor: ColorStyle.primary,
+    backgroundColor: ColorStyle.info,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8),
       side: const BorderSide(color: ColorStyle.primary),
@@ -57,5 +57,34 @@ class ElevatedButtonStyles {
       side: const BorderSide(color: ColorStyle.primary),
     ),
     foregroundColor: ColorStyle.primary,
+  );
+
+  static ButtonStyle smallPrimary = ElevatedButton.styleFrom(
+    backgroundColor: ColorStyle.info,
+    foregroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+    minimumSize: const Size(0, 36),
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    textStyle: const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+
+  static ButtonStyle smallSecondary = ElevatedButton.styleFrom(
+    backgroundColor: Colors.white,
+    foregroundColor: ColorStyle.info,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+      side: const BorderSide(color: ColorStyle.info),
+    ),
+    minimumSize: const Size(0, 36),
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    textStyle: const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    ),
   );
 }

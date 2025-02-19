@@ -15,7 +15,7 @@ class DetailStackSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 1.sh; // Menggunakan flutter_screenutil
+    double screenHeight = 1.sh;
     double containerHeight = containerHeightPercentage * screenHeight;
     double draggableHeightPercentage = 1 - containerHeightPercentage;
 

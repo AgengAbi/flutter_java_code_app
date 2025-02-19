@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/configs/themes/app_theme.dart';
 import 'package:flutter_java_code_app/features/order/models/order_model.dart';
+import 'package:flutter_java_code_app/shared/styles/color_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -120,12 +121,25 @@ class OrderItemCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 4.h),
-                  Text(
-                    "Rp ${order.totalBayar} ($menuCount Menu)",
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: Colors.grey.shade700,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        "Rp ${order.totalBayar}",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: ColorStyle.info,
+                        ),
+                      ),
+                      12.horizontalSpace,
+                      Text(
+                        "($menuCount Menu)",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 8.h),
                   Row(
@@ -133,9 +147,9 @@ class OrderItemCard extends StatelessWidget {
                       if (status == 4)
                         ElevatedButton(
                           onPressed: onGiveReview,
-                          style: ElevatedButtonStyles.secondary,
+                          style: ElevatedButtonStyles.smallSecondary,
                           child: Text(
-                            "Give review",
+                            "Beri Penilaian",
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: Colors.blue,
@@ -146,13 +160,11 @@ class OrderItemCard extends StatelessWidget {
                       if (status == 4) SizedBox(width: 8.w),
                       ElevatedButton(
                         onPressed: onOrderAgain,
-                        style: ElevatedButtonStyles.primary,
+                        style: ElevatedButtonStyles.smallPrimary,
                         child: Text(
-                          "Order again",
+                          "Pesan Lagi",
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

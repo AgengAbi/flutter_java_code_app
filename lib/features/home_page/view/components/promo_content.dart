@@ -16,37 +16,41 @@ class PromoContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Section Header
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 16.h),
-          child: const SectionHeader(
-            title: 'Promo yang Tersedia',
-            icon: SvgConstant.icDiscount,
-          ),
-        ),
-        // Obx untuk mengamati perubahan dalam promos
         Obx(() {
           if (HomePageController.to.isPromosLoading.value ||
               HomePageController.to.promos.isEmpty) {
             return _buildPromoShimmerLoading();
           } else {
-            return CarouselSlider.builder(
-              itemCount: HomePageController.to.promos.length,
-              options: CarouselOptions(
-                height: 200.h,
-                enlargeCenterPage: false,
-                viewportFraction: 0.8,
-                enableInfiniteScroll: true,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 5),
-              ),
-              itemBuilder: (context, index, realIndex) {
-                final promo = HomePageController.to.promos[index];
-                return PromoCard(
-                  promoItem: promo,
-                  enableShadow: true,
-                );
-              },
+            return Column(
+              children: [
+                // Section Header
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 16.h),
+                  child: const SectionHeader(
+                    title: 'Promo yang Tersedia',
+                    icon: SvgConstant.icDiscount,
+                  ),
+                ),
+                CarouselSlider.builder(
+                  itemCount: HomePageController.to.promos.length,
+                  options: CarouselOptions(
+                    height: 200.h,
+                    enlargeCenterPage: false,
+                    viewportFraction: 0.8,
+                    enableInfiniteScroll: true,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 5),
+                  ),
+                  itemBuilder: (context, index, realIndex) {
+                    final promo = HomePageController.to.promos[index];
+                    return PromoCard(
+                      promoItem: promo,
+                      enableShadow: true,
+                    );
+                  },
+                ),
+              ],
             );
           }
         }),
@@ -55,28 +59,48 @@ class PromoContent extends StatelessWidget {
   }
 
   _buildPromoShimmerLoading() {
-    return CarouselSlider.builder(
-      itemCount: 3,
-      options: CarouselOptions(
-        height: 200.h,
-        enlargeCenterPage: true,
-        viewportFraction: 0.8,
-      ),
-      itemBuilder: (context, index, realIndex) {
-        return Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          child: Container(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 16.h),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.r),
+                  color: Colors.grey[300],
+                ),
+                height: 40.h,
+                width: 300.w,
+              ),
+            )),
+        16.verticalSpace,
+        CarouselSlider.builder(
+          itemCount: 3,
+          options: CarouselOptions(
             height: 200.h,
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10.r),
-            ),
+            enlargeCenterPage: true,
+            viewportFraction: 0.8,
           ),
-        );
-      },
+          itemBuilder: (context, index, realIndex) {
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Container(
+                height: 200.h,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
