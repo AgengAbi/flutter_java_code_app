@@ -1,9 +1,8 @@
-import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:hive/hive.dart';
 
 part 'order_model.g.dart';
 
-@HiveType(typeId: 9)
+@HiveType(typeId: 8)
 class OrderModel extends HiveObject {
   @HiveField(0)
   final int idOrder;
@@ -37,7 +36,6 @@ class OrderModel extends HiveObject {
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
-    AppLogger.d(json.toString());
     return OrderModel(
       idOrder: json['id_order'],
       noStruk: json['no_struk'],
@@ -50,7 +48,7 @@ class OrderModel extends HiveObject {
   }
 }
 
-@HiveType(typeId: 10)
+@HiveType(typeId: 9)
 class MenuModel extends HiveObject {
   @HiveField(0)
   final int idMenu;
@@ -97,7 +95,8 @@ class MenuModel extends HiveObject {
       kategori: json['kategori'],
       topping: json['topping'],
       nama: json['nama'],
-      foto: json['foto'],
+      foto: json['foto'] ??
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
       jumlah: json['jumlah'],
       harga: json['harga'],
       total: json['total'],

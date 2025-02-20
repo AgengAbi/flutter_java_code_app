@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/constants/cores/assets/svg_constant.dart';
+import 'package:flutter_java_code_app/features/home_page/controllers/home_page_controller.dart';
 import 'package:flutter_java_code_app/features/home_page/sub_features/menu_details/controllers/home_page_menu_details_controller.dart';
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
 import 'package:flutter_java_code_app/shared/styles/elevated_button_style.dart';
@@ -25,19 +26,19 @@ class MenuDetailsScreen extends StatelessWidget {
       ),
       body: Obx(() {
         if (HomePageMenuDetailsController.to.isLoading.value ||
-            HomePageMenuDetailsController.to.menuDetails.value == null) {
+            HomePageMenuDetailsController.to.selectedMenuDetail.value == null) {
           return const MenuDetailShimmer();
         }
-
-        final details = HomePageMenuDetailsController.to.menuDetails.value!;
-        final menus = HomePageMenuDetailsController.to.menuUI.value!;
+        // Ambil instance menu dari controller detail
+        final menu = HomePageMenuDetailsController.to.selectedMenuDetail.value!;
+        final quantity = HomePageMenuDetailsController.to.getQuantity();
 
         return DetailStackSheet(
           containerHeightPercentage: 0.3,
           containerContent: Hero(
-            tag: 'menu_${menus.idMenu}',
+            tag: 'menu_${menu.idMenu}',
             child: CachedNetworkImage(
-              imageUrl: HomePageMenuDetailsController.to.menuUI.value!.foto,
+              imageUrl: menu.foto,
               height: 250.h,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -67,7 +68,7 @@ class MenuDetailsScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        details.nama,
+                        menu.nama,
                         overflow: TextOverflow.visible,
                         maxLines: 2,
                         style: GoogleTextStyle.fw600.copyWith(
@@ -79,15 +80,12 @@ class MenuDetailsScreen extends StatelessWidget {
                     ),
                     4.horizontalSpace,
                     QuantityControl(
-                      currentQuantity:
-                          HomePageMenuDetailsController.to.quantity,
+                      currentQuantity: quantity,
                       onIncrement: () {
-                        HomePageMenuDetailsController.to.incrementQuantity(
-                            HomePageMenuDetailsController.to.menuUI.value!);
+                        HomePageMenuDetailsController.to.incrementQuantity();
                       },
                       onDecrement: () {
-                        HomePageMenuDetailsController.to.decrementQuantity(
-                            HomePageMenuDetailsController.to.menuUI.value!);
+                        HomePageMenuDetailsController.to.decrementQuantity();
                       },
                     ),
                   ],
@@ -95,7 +93,7 @@ class MenuDetailsScreen extends StatelessWidget {
                 16.verticalSpace,
                 // Description
                 Text(
-                  details.deskripsi,
+                  menu.deskripsi,
                   style: GoogleTextStyle.fw400.copyWith(
                     fontSize: 14.sp,
                   ),
@@ -107,42 +105,42 @@ class MenuDetailsScreen extends StatelessWidget {
                   subtitleBold: true,
                   subtitleColor: ColorStyle.primary,
                   title: 'Harga',
-                  subtitle: details.harga.toString(),
+                  subtitle: menu.harga.toString(),
                 ),
                 const Divider(),
-                // ListTileApp(
-                //   leading: SvgConstant.icLevel,
-                //   // menu: updatedMenu,
-                //   title: 'Level',
-                //   titleBottomSheet: 'Pilih Level',
-                //   subtitle: details.level?.keterangan ?? '',
-                //   bottomSheetFormType: BottomSheetFormType.radio,
-                //   radioItems: details.level,
-                // ),
-                // const Divider(),
-                // ListTileApp(
-                //   leading: SvgConstant.icTopping,
-                //   // menu: updatedMenu,
-                //   title: 'Topping',
-                //   titleBottomSheet: 'Pilih Topping',
-                //   subtitle: details.toppingSelected
-                //           ?.map((t) => t.keterangan)
-                //           .join(', ') ??
-                //       '',
-                //   bottomSheetFormType: BottomSheetFormType.checkbox,
-                //   checkboxItems: details.topping,
-                // ),
-                // const Divider(),
-                // ListTileApp(
-                //   leading: SvgConstant.icNote,
-                //   // menu: updatedMenu,
-                //   title: 'Catatan',
-                //   titleBottomSheet: 'Buat Catatan',
-                //   subtitle: details.note ?? '',
-                //   bottomSheetFormType: BottomSheetFormType.textForm,
-                //   textFormArgument: details.note ?? '',
-                // ),
-                // const Divider(),
+                ListTileApp(
+                  leading: SvgConstant.icLevel,
+                  menu: menu,
+                  title: 'Level',
+                  titleBottomSheet: 'Pilih Level',
+                  subtitle: menu.levelSelected?.keterangan ?? '',
+                  bottomSheetFormType: BottomSheetFormType.radio,
+                  radioItems: menu.level,
+                ),
+                const Divider(),
+                ListTileApp(
+                  leading: SvgConstant.icTopping,
+                  menu: menu,
+                  title: 'Topping',
+                  titleBottomSheet: 'Pilih Topping',
+                  subtitle: menu.toppingSelected
+                          ?.map((t) => t.keterangan)
+                          .join(', ') ??
+                      '',
+                  bottomSheetFormType: BottomSheetFormType.checkbox,
+                  checkboxItems: menu.topping,
+                ),
+                const Divider(),
+                ListTileApp(
+                  leading: SvgConstant.icNote,
+                  menu: menu,
+                  title: 'Catatan',
+                  titleBottomSheet: 'Buat Catatan',
+                  subtitle: menu.note ?? '',
+                  bottomSheetFormType: BottomSheetFormType.textForm,
+                  textFormArgument: menu.note ?? '',
+                ),
+                const Divider(),
                 32.verticalSpace,
                 // Add to Order Button
                 Column(
@@ -150,11 +148,11 @@ class MenuDetailsScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: ElevatedButtonStyle.mainRounded,
-                      onPressed: HomePageMenuDetailsController.to.quantity > 0
+                      onPressed: menu.quantity > 0
                           ? () {
-                              // HomePageController.to.addMenuToOrder(updatedMenu);
+                              HomePageController.to.addMenuToOrder(menu);
                               Get.snackbar("Pesanan",
-                                  "${details.nama} berhasil ditambahkan ke pesanan!");
+                                  "${menu.nama} berhasil ditambahkan ke pesanan!");
                             }
                           : null,
                       child: Text(
@@ -167,6 +165,38 @@ class MenuDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                24.verticalSpace,
+                // Debug section untuk menampilkan data level dan topping
+                Container(
+                  margin: EdgeInsets.only(top: 16.r),
+                  padding: EdgeInsets.all(8.r),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "DEBUG INFO",
+                        style: GoogleTextStyle.fw600.copyWith(
+                          fontSize: 16.sp,
+                          color: Colors.red,
+                        ),
+                      ),
+                      8.verticalSpace,
+                      Text(
+                        "Levels: ${menu.level != null ? menu.level!.map((lvl) => lvl.toJson().toString()).join(', ') : 'Tidak ada level'}",
+                        style: GoogleTextStyle.fw400.copyWith(fontSize: 14.sp),
+                      ),
+                      8.verticalSpace,
+                      Text(
+                        "Toppings: ${menu.topping != null ? menu.topping!.map((top) => top.toJson().toString()).join(', ') : 'Tidak ada topping'}",
+                        style: GoogleTextStyle.fw400.copyWith(fontSize: 14.sp),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -216,50 +246,6 @@ class MenuDetailShimmer extends StatelessWidget {
                   color: Colors.white,
                 ),
               ],
-            ),
-            16.verticalSpace,
-            // Description shimmer
-            Container(
-              width: double.infinity,
-              height: 80.h,
-              color: Colors.white,
-            ),
-            32.verticalSpace,
-            const Divider(),
-            // Price tile shimmer
-            Container(
-              width: double.infinity,
-              height: 20.h,
-              color: Colors.white,
-            ),
-            const Divider(),
-            // Level tile shimmer
-            Container(
-              width: double.infinity,
-              height: 20.h,
-              color: Colors.white,
-            ),
-            const Divider(),
-            // Topping tile shimmer
-            Container(
-              width: double.infinity,
-              height: 20.h,
-              color: Colors.white,
-            ),
-            const Divider(),
-            // Note tile shimmer
-            Container(
-              width: double.infinity,
-              height: 20.h,
-              color: Colors.white,
-            ),
-            const Divider(),
-            32.verticalSpace,
-            // Button shimmer
-            Container(
-              width: double.infinity,
-              height: 48.h,
-              color: Colors.white,
             ),
           ],
         ),

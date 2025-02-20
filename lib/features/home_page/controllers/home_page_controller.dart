@@ -1,7 +1,7 @@
 import 'package:flutter_java_code_app/configs/routes/route.dart';
+import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/models/promo.dart';
 import 'package:flutter_java_code_app/features/home_page/repositories/home_page_repository.dart';
-import 'package:flutter_java_code_app/shared/models/menu_ui.dart';
 import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -26,8 +26,11 @@ class HomePageController extends GetxController {
   final RxString keyword = ''.obs;
   final RxString selectedCategory = 'semua menu'.obs;
 
-  // * Cart Menu List
+  // *
   RxList<MenuUI> selectedItems = <MenuUI>[].obs;
+
+  // * Cart Order List
+  RxList<MenuUI> orderList = <MenuUI>[].obs;
 
   @override
   void onInit() {
@@ -96,15 +99,14 @@ class HomePageController extends GetxController {
   // Counter quantity of menu
   void incrementQuantity(MenuUI menu) {
     AppLogger.d(
-        'Increment quantity of menu: ${menu.idMenu} - current quantity: ${menu.quantity}');
+        'Increment quantity: ${menu.nama} - current quantity: ${menu.quantity}');
     if (menu.quantity == 0) {
-      Get.toNamed(Routes.homePageMenuDetailsRoute, arguments: {
-        'menuUI': menu,
-      });
-      AppLogger.d('Quantity still 0, redirect to menu details');
+      Get.toNamed(Routes.homePageMenuDetailsRoute, arguments: {'menuUI': menu});
+      menu.quantity++;
+      AppLogger.d(
+          'Navigated to detail and incremented, new quantity: ${menu.quantity}');
     } else {
       menu.quantity++;
-      AppLogger.d('Quantity incremented to ${menu.quantity}');
     }
     menus.refresh();
   }
@@ -120,8 +122,23 @@ class HomePageController extends GetxController {
   int getQuantity(MenuUI menu) {
     AppLogger.d(
         'Get quantity of menu: ${menu.idMenu} - current quantity: ${menu.quantity}');
-    final existingItem =
-        menus.firstWhereOrNull((menu) => menu.idMenu == menu.idMenu);
+    final existingItem = menus.firstWhereOrNull((m) => m.idMenu == menu.idMenu);
     return existingItem?.quantity ?? 0;
+  }
+
+  void addMenuToOrder(MenuUI menu) {
+    final index = orderList.indexWhere((m) => m.idMenu == menu.idMenu);
+    if (menu.quantity == 0) {
+      if (index != -1) {
+        orderList.removeAt(index);
+      }
+    } else {
+      if (index != -1) {
+        orderList[index].quantity = menu.quantity;
+      } else {
+        orderList.add(menu);
+      }
+    }
+    menus.refresh();
   }
 }

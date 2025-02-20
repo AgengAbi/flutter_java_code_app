@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/features/home_page/models/level.dart';
+import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
+import 'package:flutter_java_code_app/features/home_page/models/topping.dart';
+import 'package:flutter_java_code_app/features/home_page/sub_features/menu_details/controllers/home_page_menu_details_controller.dart';
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
+import 'package:flutter_java_code_app/shared/widgets/selectable_item.dart';
 import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:flutter_java_code_app/utils/services/hive_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +24,7 @@ enum FieldType { none, name, date, phone, email, pin }
 
 class ListTileApp extends StatelessWidget {
   // Optional menu object for order
-  // final MenuUI? menu;
+  final MenuUI? menu;
 
   /// The leading widget IconData or String for SvgPicture. Nullable.
   final dynamic leading;
@@ -40,10 +45,10 @@ class ListTileApp extends StatelessWidget {
   final String? textFormArgument;
 
   /// For [BottomSheetFormType.radio]: a list of [Level] items.
-  // final List<Level>? radioItems;
+  final List<Level>? radioItems;
 
   /// For [BottomSheetFormType.checkbox]: a list of [Topping] items.
-  // final List<Topping>? checkboxItems;
+  final List<Topping>? checkboxItems;
 
   /// Additional callback for when user submit textForm
   final Function(String)? onSubmitText;
@@ -57,15 +62,15 @@ class ListTileApp extends StatelessWidget {
 
   const ListTileApp({
     super.key,
-    // this.menu,
+    this.menu,
     this.leading,
     required this.title,
     required this.subtitle,
     this.titleBottomSheet,
     this.bottomSheetFormType = BottomSheetFormType.none,
     this.textFormArgument,
-    // this.radioItems,
-    // this.checkboxItems,
+    this.radioItems,
+    this.checkboxItems,
     this.onSubmitText,
     this.fieldType = FieldType.none,
     this.subtitleBold = false,
@@ -111,10 +116,10 @@ class ListTileApp extends StatelessWidget {
             _showTextFormBottomSheet(context);
             break;
           case BottomSheetFormType.radio:
-            // _showRadioBottomSheet(context);
+            _showRadioBottomSheet(context);
             break;
           case BottomSheetFormType.checkbox:
-            // _showCheckboxBottomSheet(context);
+            _showCheckboxBottomSheet(context);
             break;
           case BottomSheetFormType.datePicker:
             _showDatePicker(context);
@@ -233,11 +238,14 @@ class ListTileApp extends StatelessWidget {
                               AppLogger.d('TextForm submitted: $newText');
                               if (onSubmitText != null) {
                                 onSubmitText!(newText);
+                              } else if (formKeyModal.currentState!
+                                  .validate()) {
+                                final newText = controller.text.trim();
+                                AppLogger.d('TextForm submitted: $newText');
+                                HomePageMenuDetailsController.to
+                                    .updateMenuNote(newText);
+                                Navigator.pop(context);
                               }
-                              // else if (menu != null) {
-                              //   HomePageController.to
-                              //       .updateMenuNote(menu!, newText);
-                              // }
                               Navigator.pop(context);
                             }
                           },
@@ -267,168 +275,168 @@ class ListTileApp extends StatelessWidget {
     return null;
   }
 
-  // /// Displays a horizontal bottom sheet with a list of choices based on [radioItems].
-  // void _showRadioBottomSheet(BuildContext context) {
-  //   Level? selectedLevel = menu?.levelSelected;
-  //   showModalBottomSheet(
-  //     showDragHandle: true,
-  //     isScrollControlled: true,
-  //     context: context,
-  //     builder: (context) {
-  //       return SingleChildScrollView(
-  //         padding:
-  //             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-  //         child: Container(
-  //           width: MediaQuery.of(context).size.width,
-  //           // constraints: const BoxConstraints(minHeight: 200),
-  //           padding: const EdgeInsets.all(16.0),
-  //           child: StatefulBuilder(
-  //             builder: (context, setState) {
-  //               return Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     titleBottomSheet ?? title,
-  //                     style: const TextStyle(
-  //                         fontSize: 18, fontWeight: FontWeight.bold),
-  //                     textAlign: TextAlign.left,
-  //                   ),
-  //                   const SizedBox(height: 10),
-  //                   SingleChildScrollView(
-  //                     scrollDirection: Axis.horizontal,
-  //                     child: Row(
-  //                       children: (radioItems == null || radioItems!.isEmpty)
-  //                           ? [
-  //                               const Text(
-  //                                 'Level tidak tersedia untuk menu ini',
-  //                                 style: TextStyle(fontSize: 16),
-  //                               )
-  //                             ]
-  //                           : radioItems!.map((levelItem) {
-  //                               return SelectableItem(
-  //                                 item: levelItem,
-  //                                 isSelected: levelItem == selectedLevel,
-  //                                 label: levelItem.keterangan,
-  //                                 onTap: (selectedItem) {
-  //                                   setState(() {
-  //                                     selectedLevel = selectedItem;
-  //                                   });
+  /// Displays a horizontal bottom sheet with a list of choices based on [radioItems].
+  void _showRadioBottomSheet(BuildContext context) {
+    Level? selectedLevel = menu?.levelSelected;
+    showModalBottomSheet(
+      showDragHandle: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return SingleChildScrollView(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            // constraints: const BoxConstraints(minHeight: 200),
+            padding: const EdgeInsets.all(16.0),
+            child: StatefulBuilder(
+              builder: (context, setState) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      titleBottomSheet ?? title,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(height: 10),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: (radioItems == null || radioItems!.isEmpty)
+                            ? [
+                                const Text(
+                                  'Level tidak tersedia untuk menu ini',
+                                  style: TextStyle(fontSize: 16),
+                                )
+                              ]
+                            : radioItems!.map((levelItem) {
+                                return SelectableItem(
+                                  item: levelItem,
+                                  isSelected: levelItem == selectedLevel,
+                                  label: levelItem.keterangan,
+                                  onTap: (selectedItem) {
+                                    setState(() {
+                                      selectedLevel = selectedItem;
+                                    });
 
-  //                                   AppLogger.d(
-  //                                       'Choice selected: ${selectedItem.keterangan}');
+                                    AppLogger.d(
+                                        'Choice selected: ${selectedItem.keterangan}');
 
-  //                                   if (menu != null) {
-  //                                     HomePageController.to
-  //                                         .updateMenuLevel(menu!, selectedItem);
-  //                                   }
-  //                                 },
-  //                               );
-  //                             }).toList(),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+                                    if (menu != null) {
+                                      HomePageMenuDetailsController.to
+                                          .updateMenuLevel(selectedItem);
+                                    }
+                                  },
+                                );
+                              }).toList(),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 
-  // /// Displays a horizontal bottom sheet with a list of choices based on [checkboxItems].
-  // void _showCheckboxBottomSheet(BuildContext context) {
-  //   List<bool> selectedList = List<bool>.generate(
-  //     checkboxItems?.length ?? 0,
-  //     (index) {
-  //       if (menu != null && menu!.toppingSelected != null) {
-  //         return menu!.toppingSelected!
-  //             .any((t) => t.idDetail == checkboxItems![index].idDetail);
-  //       }
-  //       return false;
-  //     },
-  //   );
+  /// Displays a horizontal bottom sheet with a list of choices based on [checkboxItems].
+  void _showCheckboxBottomSheet(BuildContext context) {
+    List<bool> selectedList = List<bool>.generate(
+      checkboxItems?.length ?? 0,
+      (index) {
+        if (menu != null && menu!.toppingSelected != null) {
+          return menu!.toppingSelected!
+              .any((t) => t.idDetail == checkboxItems![index].idDetail);
+        }
+        return false;
+      },
+    );
 
-  //   showModalBottomSheet(
-  //     showDragHandle: true,
-  //     isScrollControlled: true,
-  //     context: context,
-  //     builder: (context) {
-  //       return SingleChildScrollView(
-  //         padding:
-  //             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-  //         child: Container(
-  //           width: MediaQuery.of(context).size.width,
-  //           // constraints: const BoxConstraints(minHeight: 200),
-  //           padding: const EdgeInsets.all(16.0),
-  //           child: StatefulBuilder(
-  //             builder: (context, setState) {
-  //               return Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     titleBottomSheet ?? title,
-  //                     style: const TextStyle(
-  //                         fontSize: 18, fontWeight: FontWeight.bold),
-  //                     textAlign: TextAlign.left,
-  //                   ),
-  //                   const SizedBox(height: 10),
-  //                   SingleChildScrollView(
-  //                     scrollDirection: Axis.horizontal,
-  //                     child: Row(
-  //                       children: (checkboxItems == null ||
-  //                               checkboxItems!.isEmpty)
-  //                           ? [
-  //                               const Text(
-  //                                 'Topping tidak tersedia untuk menu ini',
-  //                                 style: TextStyle(fontSize: 16),
-  //                               )
-  //                             ]
-  //                           : checkboxItems!.asMap().entries.map((entry) {
-  //                               int index = entry.key;
-  //                               Topping toppingItem = entry.value;
-  //                               bool isSelected = selectedList[index];
+    showModalBottomSheet(
+      showDragHandle: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return SingleChildScrollView(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            // constraints: const BoxConstraints(minHeight: 200),
+            padding: const EdgeInsets.all(16.0),
+            child: StatefulBuilder(
+              builder: (context, setState) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      titleBottomSheet ?? title,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(height: 10),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: (checkboxItems == null ||
+                                checkboxItems!.isEmpty)
+                            ? [
+                                const Text(
+                                  'Topping tidak tersedia untuk menu ini',
+                                  style: TextStyle(fontSize: 16),
+                                )
+                              ]
+                            : checkboxItems!.asMap().entries.map((entry) {
+                                int index = entry.key;
+                                Topping toppingItem = entry.value;
+                                bool isSelected = selectedList[index];
 
-  //                               return SelectableItem(
-  //                                 item: toppingItem,
-  //                                 isSelected: isSelected,
-  //                                 label: toppingItem.keterangan,
-  //                                 onTap: (selectedItem) {
-  //                                   setState(() {
-  //                                     selectedList[index] =
-  //                                         !selectedList[index];
-  //                                   });
+                                return SelectableItem(
+                                  item: toppingItem,
+                                  isSelected: isSelected,
+                                  label: toppingItem.keterangan,
+                                  onTap: (selectedItem) {
+                                    setState(() {
+                                      selectedList[index] =
+                                          !selectedList[index];
+                                    });
 
-  //                                   AppLogger.d(
-  //                                       'Choice toggled: ${selectedItem.keterangan} now ${selectedList[index]}');
+                                    AppLogger.d(
+                                        'Choice toggled: ${selectedItem.keterangan} now ${selectedList[index]}');
 
-  //                                   if (menu != null) {
-  //                                     List<Topping> selectedToppings = [];
-  //                                     for (int i = 0;
-  //                                         i < (checkboxItems?.length ?? 0);
-  //                                         i++) {
-  //                                       if (selectedList[i]) {
-  //                                         selectedToppings
-  //                                             .add(checkboxItems![i]);
-  //                                       }
-  //                                     }
-  //                                     HomePageController.to.updateMenuTopping(
-  //                                         menu!, selectedToppings);
-  //                                   }
-  //                                 },
-  //                               );
-  //                             }).toList(),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+                                    if (menu != null) {
+                                      List<Topping> selectedToppings = [];
+                                      for (int i = 0;
+                                          i < (checkboxItems?.length ?? 0);
+                                          i++) {
+                                        if (selectedList[i]) {
+                                          selectedToppings
+                                              .add(checkboxItems![i]);
+                                        }
+                                      }
+                                      HomePageMenuDetailsController.to
+                                          .updateMenuTopping(selectedToppings);
+                                    }
+                                  },
+                                );
+                              }).toList(),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   void _showDatePicker(BuildContext context) async {
     DateTime? selectedDate = await showDatePicker(

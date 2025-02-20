@@ -1,12 +1,11 @@
 import 'package:flutter_java_code_app/features/home_page/models/menu.dart';
+import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/models/promo.dart';
-import 'package:flutter_java_code_app/features/home_page/sub_features/menu_details/models/menu_detail.dart';
 import 'package:flutter_java_code_app/features/home_page/sub_features/promo_details/models/promo_details.dart';
 import 'package:flutter_java_code_app/features/order/models/order_model.dart';
 import 'package:flutter_java_code_app/features/order/sub_features/order_details/models/order_detail_model.dart';
 import 'package:flutter_java_code_app/features/profile/models/user.dart';
 import 'package:flutter_java_code_app/features/sign_in/models/user_auth.dart';
-import 'package:flutter_java_code_app/shared/models/menu_ui.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,12 +18,11 @@ class LocalStorageService extends GetxService {
   static late Box<PromoDetails> promoDetailBox; // * typeId: 3
   static late Box<Menu> menuBox; // * typeId: 4
   static late Box<MenuUI> menuUIBox; // * typeId: 5
-  static late Box<MenuDetail> menuDetailBox; // * typeId: 6
-  static late Box<Level> levelMenuDetailBox; // * typeId: 7
-  static late Box<Topping> toppingMenuDetailBox; // * typeId: 8
-  static late Box<OrderModel> orderAPIBox; // * typeId: 9
-  static late Box<MenuModel> menuOrderAPiBox; // * typeId: 10
-  static late Box<OrderDetailModel> menuOrderAPOBox; // * typeId: 11
+  // Level * typeId 6
+  // Topping * typeId 7
+  static late Box<OrderModel> orderAPIBox; // * typeId: 8
+  static late Box<MenuModel> menuOrderAPiBox; // * typeId: 9
+  static late Box<OrderDetailModel> menuOrderAPOBox; // * typeId: 10
   static late Box<String> languageBox;
 
   // Declare all model that needed

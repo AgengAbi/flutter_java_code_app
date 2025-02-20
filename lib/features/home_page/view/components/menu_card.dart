@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/configs/routes/route.dart';
-import 'package:flutter_java_code_app/shared/models/menu_ui.dart';
+import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
 import 'package:flutter_java_code_app/shared/styles/google_text_style.dart';
 import 'package:flutter_java_code_app/shared/widgets/quantity_control.dart';

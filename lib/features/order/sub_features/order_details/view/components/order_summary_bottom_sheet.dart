@@ -102,7 +102,9 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Voucher:', style: TextStyle(fontSize: 18)),
+                const Text('Voucher:',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Column(
                   children: [
                     Text(
@@ -121,8 +123,10 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Pembayaran:', style: TextStyle(fontSize: 18)),
-                Text('Paylater', style: TextStyle(fontSize: 18)),
+                Text('Pembayaran:',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('Pay Later', style: TextStyle(fontSize: 18)),
               ],
             ),
             const Divider(),
@@ -130,8 +134,8 @@ class OrderSummaryBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Total Bayar',
-                  style: TextStyle(fontSize: 18),
+                  'Total Pembayaran',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'Rp $totalPayment',

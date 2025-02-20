@@ -8,7 +8,7 @@ part of 'order_detail_model.dart';
 
 class OrderDetailModelAdapter extends TypeAdapter<OrderDetailModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 10;
 
   @override
   OrderDetailModel read(BinaryReader reader) {

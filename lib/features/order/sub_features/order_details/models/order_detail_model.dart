@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'order_detail_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 10)
 class OrderDetailModel extends HiveObject {
   @HiveField(0)
   int idOrder;

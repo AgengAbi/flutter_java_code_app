@@ -8,7 +8,7 @@ part of 'order_model.dart';
 
 class OrderModelAdapter extends TypeAdapter<OrderModel> {
   @override
-  final int typeId = 9;
+  final int typeId = 8;
 
   @override
   OrderModel read(BinaryReader reader) {
@@ -60,7 +60,7 @@ class OrderModelAdapter extends TypeAdapter<OrderModel> {
 
 class MenuModelAdapter extends TypeAdapter<MenuModel> {
   @override
-  final int typeId = 10;
+  final int typeId = 9;
 
   @override
   MenuModel read(BinaryReader reader) {

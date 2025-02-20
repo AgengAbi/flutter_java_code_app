@@ -25,16 +25,18 @@ class MenuUIAdapter extends TypeAdapter<MenuUI> {
       foto: fields[5] as String,
       status: fields[6] as int,
       quantity: fields[7] as int,
-      topping: (fields[8] as List?)?.cast<int>(),
-      level: (fields[9] as List?)?.cast<int>(),
-      note: fields[10] as String?,
+      topping: (fields[8] as List?)?.cast<Topping>(),
+      level: (fields[9] as List?)?.cast<Level>(),
+      levelSelected: fields[10] as Level?,
+      toppingSelected: (fields[11] as List?)?.cast<Topping>(),
+      note: fields[12] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, MenuUI obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.idMenu)
       ..writeByte(1)
@@ -56,6 +58,10 @@ class MenuUIAdapter extends TypeAdapter<MenuUI> {
       ..writeByte(9)
       ..write(obj.level)
       ..writeByte(10)
+      ..write(obj.levelSelected)
+      ..writeByte(11)
+      ..write(obj.toppingSelected)
+      ..writeByte(12)
       ..write(obj.note);
   }
 

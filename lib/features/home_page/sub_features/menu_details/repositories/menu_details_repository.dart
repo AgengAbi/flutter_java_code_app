@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_java_code_app/features/home_page/constants/home_page_api_constant.dart';
+import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/sub_features/menu_details/models/menu_detail.dart';
 import 'package:flutter_java_code_app/shared/models/failure.dart';
 import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
@@ -32,6 +33,32 @@ class MenuDetailsRepository {
       }
     } catch (e) {
       AppLogger.e('Error fetching menu detail: $e');
+      return Left(NetworkFailure());
+    }
+  }
+
+  // Retrieve detail menu with detail
+  static Future<Either<Failure, MenuUI>> fetchDetailMenu(int idMenu) async {
+    try {
+      AppLogger.d('Fetching menu detail for id: $idMenu');
+      String? token = LocalStorageService.getAuthToken();
+      final dio = DioService.dioCall(token: token);
+      final response =
+          await dio.get('${HomePageApiConstant.getMenuDetail}/$idMenu');
+
+      if (response.statusCode == 200) {
+        final fetchedMenuUI = MenuUI.fromDetailJson(response.data);
+
+        return Right(fetchedMenuUI);
+      } else {
+        AppLogger.w(
+            'Failed to fetch menu detail. Status Code: ${response.statusCode}');
+        return Left(ServerFailure(
+            message: 'Failed to fetch detail menu',
+            statusCode: response.statusCode));
+      }
+    } catch (e, stacktrace) {
+      AppLogger.e('Error fetching detail menu: $e', e, stacktrace);
       return Left(NetworkFailure());
     }
   }
