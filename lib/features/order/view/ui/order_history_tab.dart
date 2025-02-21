@@ -90,7 +90,11 @@ class OrderHistoryTabView extends StatelessWidget {
                       order: OrderController.to.historyOrders[index],
                       onTap: () {
                         Get.toNamed(
-                          '${Routes.orderRoute}/${OrderController.to.historyOrders[index].idOrder}',
+                          Routes.orderOrderDetailsRoute,
+                          arguments: {
+                            'orderId':
+                                OrderController.to.historyOrders[index].idOrder,
+                          },
                         );
                       },
                       onOrderAgain: () {},
@@ -121,13 +125,13 @@ class OrderHistoryTabView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      "Rp ${OrderController.to.totalHistoryOrder}",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Obx(() => Text(
+                          "Rp ${OrderController.to.totalHistoryOrder}",
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
                   ],
                 ),
               ),

@@ -197,6 +197,7 @@ class CheckoutController extends GetxController {
                 .toList()
             : [],
         "jumlah": menu.quantity,
+        "catatan": menu.note,
       };
     }).toList();
 

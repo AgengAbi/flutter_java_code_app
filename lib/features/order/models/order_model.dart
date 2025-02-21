@@ -98,7 +98,7 @@ class MenuModel extends HiveObject {
       foto: json['foto'] ??
           'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
       jumlah: json['jumlah'],
-      harga: json['harga'],
+      harga: json['harga'].toString(),
       total: json['total'],
       catatan: json['catatan'],
     );

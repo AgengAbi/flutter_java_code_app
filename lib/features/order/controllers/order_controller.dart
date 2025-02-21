@@ -56,6 +56,8 @@ class OrderController extends GetxController {
       (orders) {
         onGoingOrders.value = getOngoingOrders(orders);
         historyOrders.value = getHistoryOrders(orders);
+        AppLogger.d('Total ongoing orders: ${onGoingOrders.length}');
+        AppLogger.d('Total history orders: ${historyOrders.length}');
         isLoading(false);
       },
     );
@@ -68,7 +70,7 @@ class OrderController extends GetxController {
   }
 
   List<OrderModel> getHistoryOrders(List<OrderModel> orders) {
-    return orders.where((order) => order.status == 3).toList();
+    return orders.where((order) => order.status >= 3).toList();
   }
 
   List<OrderModel> get filteredHistoryOrder {
@@ -80,9 +82,9 @@ class OrderController extends GetxController {
       historyOrderList.removeWhere((order) => order.status != 3);
     }
 
-    historyOrderList.removeWhere((order) =>
-        DateTime.parse(order.tanggal).isBefore(selectedDateRange.value.start) ||
-        DateTime.parse(order.tanggal).isAfter(selectedDateRange.value.end));
+    // historyOrderList.removeWhere((order) =>
+    //     DateTime.parse(order.tanggal).isBefore(selectedDateRange.value.start) ||
+    //     DateTime.parse(order.tanggal).isAfter(selectedDateRange.value.end));
 
     historyOrderList.sort((a, b) =>
         DateTime.parse(b.tanggal).compareTo(DateTime.parse(a.tanggal)));
@@ -96,8 +98,9 @@ class OrderController extends GetxController {
   }
 
   String get totalHistoryOrder {
-    final total = filteredHistoryOrder.where((e) => e.status == 3).fold(
+    final total = filteredHistoryOrder.where((e) => e.status >= 3).fold(
         0, (previousValue, element) => previousValue + element.totalBayar);
+    AppLogger.d('Total Harga History Order: $total');
 
     return total.toString();
   }
