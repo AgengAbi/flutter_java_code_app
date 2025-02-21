@@ -115,6 +115,12 @@ class HomePageController extends GetxController {
     if (menu.quantity > 0) {
       menu.quantity--;
       AppLogger.d('Quantity decremented to ${menu.quantity}');
+
+      // if quantiy is 0, remove from order list
+      if (menu.quantity == 0) {
+        menu.note = '';
+        orderList.removeWhere((m) => m.idMenu == menu.idMenu);
+      }
     }
     menus.refresh();
   }

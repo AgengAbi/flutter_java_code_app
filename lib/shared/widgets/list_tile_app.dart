@@ -246,7 +246,6 @@ class ListTileApp extends StatelessWidget {
                                     .updateMenuNote(newText);
                                 Navigator.pop(context);
                               }
-                              Navigator.pop(context);
                             }
                           },
                         ),

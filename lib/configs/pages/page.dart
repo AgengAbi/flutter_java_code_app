@@ -1,4 +1,6 @@
 import 'package:flutter_java_code_app/configs/routes/route.dart';
+import 'package:flutter_java_code_app/features/checkout/bindings/checkout_binding.dart';
+import 'package:flutter_java_code_app/features/checkout/view/ui/checkout_screen.dart';
 import 'package:flutter_java_code_app/features/get_location/bindings/get_location_binding.dart';
 import 'package:flutter_java_code_app/features/get_location/view/ui/get_location_screen.dart';
 import 'package:flutter_java_code_app/features/home_page/bindings/home_page_binding.dart';
@@ -80,6 +82,13 @@ abstract class Pages {
       name: Routes.homePageMenuDetailsRoute,
       page: () => const MenuDetailsScreen(),
       binding: HomePageMenuDetailsBinding(),
+    ),
+
+    // Checkout
+    GetPage(
+      name: Routes.checkoutRoute,
+      page: () => CheckoutScreen(),
+      binding: CheckoutBinding(),
     ),
   ];
 }

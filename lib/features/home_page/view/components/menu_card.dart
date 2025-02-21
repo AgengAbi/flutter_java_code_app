@@ -114,11 +114,17 @@ class MenuCard extends StatelessWidget {
                                 Icons.edit_note,
                                 color: ColorStyle.primary,
                               ),
-                              Text(
-                                'Tambahakan Catatan',
-                                style: GoogleTextStyle.fw400.copyWith(
-                                  color: ColorStyle.grey,
-                                  fontSize: 12.sp,
+                              Expanded(
+                                child: Text(
+                                  menu.note == ''
+                                      ? 'Tambahakan Catatan'
+                                      : menu.note!,
+                                  maxLines: 1,
+                                  style: GoogleTextStyle.fw400.copyWith(
+                                    color: ColorStyle.grey,
+                                    fontSize: 12.sp,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ),
                             ],

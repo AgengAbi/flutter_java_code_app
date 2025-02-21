@@ -65,23 +65,6 @@ class LocalStorageService extends GetxService {
     return authToken.get('authToken');
   }
 
-  // // * Home Page
-  // // * Promo
-  // static Future<void> setPromos(List<Promo> promos) async {
-  //   await promoBox.clear();
-  //   for (var promo in promos) {
-  //     await promoBox.put(promo.idPromo, promo);
-  //   }
-  // }
-
-  // static List<Promo> getPromos() {
-  //   return promoBox.values.toList();
-  // }
-
-  // static Future<void> clearPromos() async {
-  //   await promoBox.clear();
-  // }
-
   // * Profile user
   static Future<void> setUser(User user) async {
     await userBox.clear();
