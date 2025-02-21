@@ -56,8 +56,6 @@ class OrderController extends GetxController {
       (orders) {
         onGoingOrders.value = getOngoingOrders(orders);
         historyOrders.value = getHistoryOrders(orders);
-        AppLogger.d('Total ongoing orders: ${onGoingOrders.length}');
-        AppLogger.d('Total history orders: ${historyOrders.length}');
         isLoading(false);
       },
     );

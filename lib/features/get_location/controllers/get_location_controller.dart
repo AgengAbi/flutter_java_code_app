@@ -15,11 +15,6 @@ class GetLocationController extends GetxController {
   Rxn<Position> position = Rxn<Position>();
   RxnString address = RxnString();
 
-  // data
-  // RxString id = RxString('');
-  // RxString name = RxString('');
-  // RxString photo = RxString('');
-
   @override
   void onReady() {
     super.onReady();

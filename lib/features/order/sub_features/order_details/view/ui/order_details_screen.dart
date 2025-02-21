@@ -39,8 +39,16 @@ class OrderDetailsScreen extends StatelessWidget {
                     color: ColorStyle.info,
                   ),
                   12.verticalSpace,
-                  ...controller.foodItems.detail
-                      .map((food) => DetailOrderCard(food)),
+                  Column(
+                    children: controller.foodItems.detail
+                        .map((food) => Column(
+                              children: [
+                                DetailOrderCard(food),
+                                12.verticalSpace,
+                              ],
+                            ))
+                        .toList(),
+                  ),
                 ],
                 12.verticalSpace,
                 // Drink Section
@@ -51,8 +59,16 @@ class OrderDetailsScreen extends StatelessWidget {
                     color: ColorStyle.info,
                   ),
                   12.verticalSpace,
-                  ...controller.drinkItems.detail
-                      .map((drink) => DetailOrderCard(drink)),
+                  Column(
+                    children: controller.drinkItems.detail
+                        .map((drink) => Column(
+                              children: [
+                                DetailOrderCard(drink),
+                                12.verticalSpace,
+                              ],
+                            ))
+                        .toList(),
+                  ),
                 ],
                 12.verticalSpace,
                 // Snack Section
@@ -63,9 +79,18 @@ class OrderDetailsScreen extends StatelessWidget {
                     color: ColorStyle.info,
                   ),
                   12.verticalSpace,
-                  ...controller.drinkItems.detail
-                      .map((drink) => DetailOrderCard(drink)),
+                  Column(
+                    children: controller.snackItems.detail
+                        .map((snack) => Column(
+                              children: [
+                                DetailOrderCard(snack),
+                                12.verticalSpace,
+                              ],
+                            ))
+                        .toList(),
+                  ),
                 ],
+                56.verticalSpace,
               ],
             ),
           );

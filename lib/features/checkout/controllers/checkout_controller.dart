@@ -169,7 +169,7 @@ class CheckoutController extends GetxController {
     final String resultMessage =
         await CheckoutRepository.createOrder(orderData);
 
-    if (resultMessage.toLowerCase().contains('berhasil')) {
+    if (resultMessage.toLowerCase().contains('successfuly')) {
       Get.snackbar('Success', resultMessage);
     } else {
       Get.snackbar('Error', resultMessage);
