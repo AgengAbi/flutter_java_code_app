@@ -59,6 +59,17 @@ class ProfileScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     Obx(() {
+                      // Jika sudah ada file gambar dari pickImage, gunakan Image.file
+                      final imageFile = ProfileController.to.imageFile;
+                      if (imageFile != null) {
+                        return Image.file(
+                          imageFile,
+                          width: 170.r,
+                          height: 170.r,
+                          fit: BoxFit.cover,
+                        );
+                      }
+                      // Jika belum ada file, gunakan foto dari URL (dari API)
                       final photoUrl =
                           ProfileController.to.user.value?.foto ?? '';
                       if (photoUrl.isNotEmpty) {
@@ -76,14 +87,14 @@ class ProfileScreen extends StatelessWidget {
                             );
                           },
                         );
-                      } else {
-                        return Image.asset(
-                          ImageConstant.bgProfile,
-                          width: 170.r,
-                          height: 170.r,
-                          fit: BoxFit.cover,
-                        );
                       }
+                      // Jika tidak ada keduanya, tampilkan asset default
+                      return Image.asset(
+                        ImageConstant.bgProfile,
+                        width: 170.r,
+                        height: 170.r,
+                        fit: BoxFit.cover,
+                      );
                     }),
                     Align(
                       alignment: Alignment.bottomCenter,
