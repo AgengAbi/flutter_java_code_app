@@ -1,4 +1,5 @@
 import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/models/voucher.dart';
+import 'package:flutter_java_code_app/features/evaluation/models/rating.dart';
 import 'package:flutter_java_code_app/features/home_page/models/menu.dart';
 import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/models/promo.dart';
@@ -24,7 +25,8 @@ class LocalStorageService extends GetxService {
   static late Box<OrderModel> orderAPIBox; // * typeId: 8
   static late Box<MenuModel> menuOrderAPIBox; // * typeId: 9
   static late Box<OrderDetailModel> menuOrderDetailAPIBox; // * typeId: 10
-  static late Box<Voucher> voucherBox;
+  static late Box<Voucher> voucherBox; // * typeId: 11
+  static late Box<Rating> ratingBox; // * typeId: 12
   static late Box<String> languageBox;
 
   // Declare all model that needed
@@ -32,6 +34,7 @@ class LocalStorageService extends GetxService {
     // List model adapter
     Hive.registerAdapter(UserAuthAdapter());
     Hive.registerAdapter(UserAdapter());
+    Hive.registerAdapter(RatingAdapter());
 
     // Open box that are needed
     // user
@@ -39,6 +42,7 @@ class LocalStorageService extends GetxService {
     userBox = await Hive.openBox<User>('userBox');
     authToken = await Hive.openBox<String>('authToken');
     languageBox = await Hive.openBox<String>('languageBox');
+    ratingBox = await Hive.openBox<Rating>('ratingBox');
   }
 
   static Future<void> deleteAll() async {
@@ -46,6 +50,7 @@ class LocalStorageService extends GetxService {
     await userBox.clear();
     await authToken.clear();
     await languageBox.clear();
+    await ratingBox.clear();
   }
 
   // UserAuth

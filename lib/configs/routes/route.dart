@@ -14,4 +14,7 @@ abstract class Routes {
   static const String checkoutRoute = '/checkout';
   static const String checkoutVoucherRoute = '/checkout_voucher';
   static const String checkoutVoucherDetailRoute = '/voucher_detail';
+  static const String evaluationRoute = '/evaluation';
+  static const String createEvaluationRoute = '/create_evaluation';
+  static const String evaluationChatRatingRoute = '/evaluation_chat_rating';
 }

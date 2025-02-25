@@ -3,6 +3,10 @@ import 'package:flutter_java_code_app/features/checkout/bindings/checkout_bindin
 import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/view/ui/voucher_detail.dart';
 import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/view/ui/voucher_screen.dart';
 import 'package:flutter_java_code_app/features/checkout/view/ui/checkout_screen.dart';
+import 'package:flutter_java_code_app/features/evaluation/bindings/evaluation_binding.dart';
+import 'package:flutter_java_code_app/features/evaluation/sub_features/chat_rating/view/ui/chat_rating_screen.dart';
+import 'package:flutter_java_code_app/features/evaluation/view/ui/create_evaluation_screen.dart';
+import 'package:flutter_java_code_app/features/evaluation/view/ui/evaluation_screen.dart';
 import 'package:flutter_java_code_app/features/get_location/bindings/get_location_binding.dart';
 import 'package:flutter_java_code_app/features/get_location/view/ui/get_location_screen.dart';
 import 'package:flutter_java_code_app/features/home_page/bindings/home_page_binding.dart';
@@ -56,6 +60,27 @@ abstract class Pages {
       name: Routes.profileRoute,
       page: () => const ProfileScreen(),
       binding: ProfileBinding(),
+    ),
+
+    // Evaluation
+    GetPage(
+      name: Routes.evaluationRoute,
+      page: () => EvaluationScreen(),
+      binding: EvaluationBinding(),
+    ),
+
+    // Create Evaluation
+    GetPage(
+      name: Routes.createEvaluationRoute,
+      page: () => const CreateEvaluationScreen(),
+      binding: EvaluationChatBinding(),
+    ),
+
+    // Evaluation Chat Rating
+    GetPage(
+      name: Routes.evaluationChatRatingRoute,
+      page: () => const ChatRatingScreen(),
+      binding: EvaluationChatBinding(),
     ),
 
     // Order

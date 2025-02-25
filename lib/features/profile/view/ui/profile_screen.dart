@@ -245,14 +245,16 @@ class ProfileScreen extends StatelessWidget {
                             SvgPicture.asset(SvgConstant.icReview),
                             9.horizontalSpaceRadius,
                             Text(
-                              'Rating',
+                              'Penilaian',
                               style: Get.textTheme.titleSmall,
                             )
                           ],
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(Routes.evaluationRoute);
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: ColorStyle.secondary,
                             elevation: 3,

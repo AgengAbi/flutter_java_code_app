@@ -15,7 +15,7 @@ class VoucherDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Voucher voucher = Get.arguments as Voucher;
-    print('${voucher.periodeMulai} - ${voucher.periodeSelesai}');
+    // print('${voucher.periodeMulai} - ${voucher.periodeSelesai}');
     return Scaffold(
         appBar: const UniversalAppBar(
           title: 'Detail Voucher',

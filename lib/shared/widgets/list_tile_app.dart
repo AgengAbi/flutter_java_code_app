@@ -492,6 +492,7 @@ class ListTileApp extends StatelessWidget {
   void _showLanguagePicker(BuildContext context) {
     String selectedLanguage = LocalStorageService.getLanguage() ?? "Indonesia";
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
@@ -502,15 +503,9 @@ class ListTileApp extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[400],
-                          borderRadius: BorderRadius.circular(2))),
-                  const SizedBox(height: 16),
-                  const Text('Pilih Bahasa',
+                  const Text('Ganti Bahasa',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 16),
