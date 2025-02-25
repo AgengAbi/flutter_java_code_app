@@ -18,4 +18,6 @@ class SvgConstant {
   static const String icCart = "${urlBasePath}ic_cart.svg";
   static const String icPayment = "${urlBasePath}ic_payment.svg";
   static const String icfrying = "${urlBasePath}ic_frying.svg";
+  static const String icIndonesiaFlag = "${urlBasePath}ic_indonesia_flag.svg";
+  static const String icEnglishFlag = "${urlBasePath}ic_english_flag.svg";
 }

@@ -287,7 +287,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             14.verticalSpacingRadius,
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 30.r),
+              padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 20.r),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.r),
                   color: ColorStyle.light),
@@ -295,15 +295,17 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Obx(() => ListTileApp(
                       title: 'Device Info',
+                      titleBold: true,
                       subtitle: ProfileController.to.deviceModel.value)),
                   const Divider(),
                   Obx(() => ListTileApp(
                       title: 'Device Version',
+                      titleBold: true,
                       subtitle: ProfileController.to.deviceVersion.value))
                 ],
               ),
             ),
-
+            32.verticalSpace,
             ElevatedButton(
                 style: ElevatedButtonStyle.mainRounded,
                 onPressed: () {

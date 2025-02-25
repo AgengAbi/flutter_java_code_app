@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/constants/cores/assets/svg_constant.dart';
 import 'package:flutter_java_code_app/features/home_page/models/level.dart';
 import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/models/topping.dart';
@@ -530,18 +531,19 @@ class ListTileApp extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 color: selectedLanguage == "Indonesia"
-                                    ? Colors.blue
+                                    ? ColorStyle.primary
                                     : Colors.grey[300],
                                 borderRadius: BorderRadius.circular(8)),
                             alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 8.r),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Icon(Icons.flag,
-                                    size: 20, color: Colors.red),
-                                const SizedBox(width: 8),
+                                SvgPicture.asset(SvgConstant.icIndonesiaFlag),
+                                8.horizontalSpace,
                                 Text("Indonesia",
                                     style: TextStyle(
+                                        fontSize: 14.sp,
                                         color: selectedLanguage == "Indonesia"
                                             ? Colors.white
                                             : Colors.black)),
@@ -549,6 +551,10 @@ class ListTileApp extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   const Icon(Icons.check,
                                       size: 16, color: Colors.white),
+                                ] else ...[
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
                                 ],
                               ],
                             ),
@@ -569,18 +575,19 @@ class ListTileApp extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 color: selectedLanguage == "English"
-                                    ? Colors.blue
+                                    ? ColorStyle.primary
                                     : Colors.grey[300],
                                 borderRadius: BorderRadius.circular(8)),
                             alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 8.r),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Icon(Icons.language,
-                                    size: 20, color: Colors.blue),
-                                const SizedBox(width: 8),
-                                Text("English",
+                                SvgPicture.asset(SvgConstant.icEnglishFlag),
+                                8.horizontalSpace,
+                                Text("Inggris",
                                     style: TextStyle(
+                                        fontSize: 14.sp,
                                         color: selectedLanguage == "English"
                                             ? Colors.white
                                             : Colors.black)),
@@ -588,6 +595,10 @@ class ListTileApp extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   const Icon(Icons.check,
                                       size: 16, color: Colors.white),
+                                ] else ...[
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
                                 ],
                               ],
                             ),
