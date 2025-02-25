@@ -18,9 +18,17 @@ class OrderController extends GetxController {
 
   final RxBool isLoading = true.obs;
 
-  Rx<String> selectedCategory = 'all'.obs;
+  Rx<String> selectedCategoryOnGoing = 'all'.obs;
+  Rx<String> selectedCategoryOnHistory = 'all'.obs;
 
-  Map<String, String> get dateFilterStatus => {
+  Map<String, String> get onGoingFilterStatus => {
+        'all': 'Semua Status'.tr,
+        'order received': 'Pesanan diterima'.tr,
+        'please take it': 'Silahkan diambil'.tr,
+        'order complated': 'Pesanan selesai'.tr,
+      };
+
+  Map<String, String> get historyFilterStatus => {
         'all': 'Semua Status'.tr,
         'completed': 'Selesai'.tr,
         'canceled': 'Dibatalkan'.tr,
@@ -42,7 +50,12 @@ class OrderController extends GetxController {
       )
       .obs;
 
-  Rx<DateTimeRange> selectedDateRange = DateTimeRange(
+  Rx<DateTimeRange> selectedDateRangeOnGoing = DateTimeRange(
+    start: DateTime.now().subtract(const Duration(days: 30)),
+    end: DateTime.now(),
+  ).obs;
+
+  Rx<DateTimeRange> selectedDateRangeOnHistory = DateTimeRange(
     start: DateTime.now().subtract(const Duration(days: 30)),
     end: DateTime.now(),
   ).obs;
@@ -74,10 +87,10 @@ class OrderController extends GetxController {
   List<OrderModel> get filteredHistoryOrder {
     final historyOrderList = historyOrders.toList();
 
-    if (selectedCategory.value == 'canceled') {
-      historyOrderList.removeWhere((order) => order.status != 4);
-    } else if (selectedCategory.value == 'completed') {
+    if (selectedCategoryOnHistory.value == 'canceled') {
       historyOrderList.removeWhere((order) => order.status != 3);
+    } else if (selectedCategoryOnHistory.value == 'completed') {
+      historyOrderList.removeWhere((order) => order.status != 4);
     }
 
     // historyOrderList.removeWhere((order) =>
@@ -90,9 +103,35 @@ class OrderController extends GetxController {
     return historyOrderList;
   }
 
-  void setDateFilter({String? category, DateTimeRange? range}) {
-    selectedCategory(category);
-    selectedDateRange(range);
+  List<OrderModel> get filteredOnGoingOrder {
+    final historyOrderList = onGoingOrders.toList();
+
+    if (selectedCategoryOnGoing.value == 'order received') {
+      historyOrderList.removeWhere((order) => order.status != 0);
+    } else if (selectedCategoryOnGoing.value == 'please take it') {
+      historyOrderList.removeWhere((order) => order.status != 1);
+    } else if (selectedCategoryOnGoing.value == 'order complated') {
+      historyOrderList.removeWhere((order) => order.status != 2);
+    }
+
+    // historyOrderList.removeWhere((order) =>
+    //     DateTime.parse(order.tanggal).isBefore(selectedDateRange.value.start) ||
+    //     DateTime.parse(order.tanggal).isAfter(selectedDateRange.value.end));
+
+    historyOrderList.sort((a, b) =>
+        DateTime.parse(b.tanggal).compareTo(DateTime.parse(a.tanggal)));
+
+    return historyOrderList;
+  }
+
+  void setDateFilterHistory({String? category, DateTimeRange? range}) {
+    selectedCategoryOnHistory(category);
+    selectedDateRangeOnHistory(range);
+  }
+
+  void setDateFilterOnGoing({String? category, DateTimeRange? range}) {
+    selectedCategoryOnGoing(category);
+    selectedDateRangeOnGoing(range);
   }
 
   String get totalHistoryOrder {

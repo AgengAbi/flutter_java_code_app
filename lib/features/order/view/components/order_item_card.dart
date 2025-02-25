@@ -3,7 +3,6 @@ import 'package:flutter_java_code_app/configs/themes/app_theme.dart';
 import 'package:flutter_java_code_app/features/order/models/order_model.dart';
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class OrderItemCard extends StatelessWidget {
   const OrderItemCard({
@@ -29,18 +28,36 @@ class OrderItemCard extends StatelessWidget {
     IconData statusIcon = Icons.cancel;
     Color statusColor = Colors.red;
 
-    if (status >= 0 && status < 3) {
-      statusText = "Sedang disiapkan".tr;
-      statusIcon = Icons.access_time;
-      statusColor = Colors.orange;
-    } else if (status == 3) {
-      statusText = "Selesai".tr;
-      statusIcon = Icons.check_circle;
-      statusColor = Colors.green;
-    } else {
-      statusText = "Dibatalkan".tr;
-      statusIcon = Icons.cancel;
-      statusColor = Colors.red;
+    switch (status.toInt()) {
+      case 0:
+        statusText = "Pesanan diterima";
+        statusIcon = Icons.access_time;
+        statusColor = Colors.orange;
+        break;
+      case 1:
+        statusText = "Silahkan diambil";
+        statusIcon = Icons.check_circle;
+        statusColor = Colors.orange;
+        break;
+      case 2:
+        statusText = "Pesanan selesai";
+        statusIcon = Icons.cancel;
+        statusColor = Colors.green;
+        break;
+      case 3:
+        statusText = "Dibatalkan";
+        statusIcon = Icons.cancel_outlined;
+        statusColor = Colors.red;
+        break;
+      case 4:
+        statusText = "Selesai";
+        statusIcon = Icons.check_circle;
+        statusColor = Colors.green;
+        break;
+      default:
+        statusText = "Tidak dapat ditracking";
+        statusIcon = Icons.cancel;
+        statusColor = Colors.red;
     }
 
     return InkWell(
@@ -158,16 +175,17 @@ class OrderItemCard extends StatelessWidget {
                           ),
                         ),
                       if (status == 4) SizedBox(width: 8.w),
-                      ElevatedButton(
-                        onPressed: onOrderAgain,
-                        style: ElevatedButtonStyles.smallPrimary,
-                        child: Text(
-                          "Pesan Lagi",
-                          style: TextStyle(
-                            fontSize: 12.sp,
+                      if (status == 4 || status == 3)
+                        ElevatedButton(
+                          onPressed: onOrderAgain,
+                          style: ElevatedButtonStyles.smallPrimary,
+                          child: Text(
+                            "Pesan Lagi",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ],

@@ -27,7 +27,7 @@ class DropdownStatus extends StatelessWidget {
           alignedDropdown: true,
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
               value: selectedItem,
               isDense: true,
               icon: const Icon(Icons.arrow_drop_down, size: 18),

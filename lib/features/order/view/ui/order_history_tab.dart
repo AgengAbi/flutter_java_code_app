@@ -64,19 +64,23 @@ class OrderHistoryTabView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     DropdownStatus(
-                      items: OrderController.to.dateFilterStatus,
-                      selectedItem: OrderController.to.selectedCategory.value,
+                      items: OrderController.to.historyFilterStatus,
+                      selectedItem:
+                          OrderController.to.selectedCategoryOnHistory.value,
                       onChanged: (value) {
                         if (value != null) {
-                          OrderController.to.setDateFilter(category: value);
+                          OrderController.to
+                              .setDateFilterHistory(category: value);
                         }
                       },
                     ),
                     DatePicker(
                       onChanged: (dateRange) {
-                        OrderController.to.setDateFilter(range: dateRange);
+                        OrderController.to
+                            .setDateFilterHistory(range: dateRange);
                       },
-                      selectedDate: OrderController.to.selectedDateRange.value,
+                      selectedDate:
+                          OrderController.to.selectedDateRangeOnHistory.value,
                     ),
                   ],
                 ),
@@ -87,20 +91,21 @@ class OrderHistoryTabView extends StatelessWidget {
                   child: ListView.separated(
                     padding: EdgeInsets.all(25.r),
                     itemBuilder: (context, index) => OrderItemCard(
-                      order: OrderController.to.historyOrders[index],
+                      order: OrderController.to.filteredHistoryOrder[index],
                       onTap: () {
                         Get.toNamed(
                           Routes.orderOrderDetailsRoute,
                           arguments: {
-                            'orderId':
-                                OrderController.to.historyOrders[index].idOrder,
+                            'orderId': OrderController
+                                .to.filteredHistoryOrder[index].idOrder,
                           },
                         );
                       },
+                      onGiveReview: () {},
                       onOrderAgain: () {},
                     ),
                     separatorBuilder: (context, index) => 16.verticalSpace,
-                    itemCount: OrderController.to.historyOrders.length,
+                    itemCount: OrderController.to.filteredHistoryOrder.length,
                   ),
                 ),
               ),

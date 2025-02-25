@@ -62,19 +62,21 @@ class OnGoingOrderTabView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DropdownStatus(
-                  items: OrderController.to.dateFilterStatus,
-                  selectedItem: OrderController.to.selectedCategory.value,
+                  items: OrderController.to.onGoingFilterStatus,
+                  selectedItem:
+                      OrderController.to.selectedCategoryOnGoing.value,
                   onChanged: (value) {
                     if (value != null) {
-                      OrderController.to.setDateFilter(category: value);
+                      OrderController.to.setDateFilterOnGoing(category: value);
                     }
                   },
                 ),
                 DatePicker(
                   onChanged: (dateRange) {
-                    OrderController.to.setDateFilter(range: dateRange);
+                    OrderController.to.setDateFilterOnGoing(range: dateRange);
                   },
-                  selectedDate: OrderController.to.selectedDateRange.value,
+                  selectedDate:
+                      OrderController.to.selectedDateRangeOnGoing.value,
                 ),
               ],
             ),
@@ -85,20 +87,20 @@ class OnGoingOrderTabView extends StatelessWidget {
               child: ListView.separated(
                 padding: EdgeInsets.all(25.r),
                 itemBuilder: (context, index) => OrderItemCard(
-                  order: OrderController.to.onGoingOrders[index],
+                  order: OrderController.to.filteredOnGoingOrder[index],
                   onTap: () {
                     Get.toNamed(
                       Routes.orderOrderDetailsRoute,
                       arguments: {
-                        'orderId':
-                            OrderController.to.onGoingOrders[index].idOrder,
+                        'orderId': OrderController
+                            .to.filteredOnGoingOrder[index].idOrder,
                       },
                     );
                   },
                   onOrderAgain: () {},
                 ),
                 separatorBuilder: (context, index) => 16.verticalSpace,
-                itemCount: OrderController.to.onGoingOrders.length,
+                itemCount: OrderController.to.filteredOnGoingOrder.length,
               ),
             ),
           ),
