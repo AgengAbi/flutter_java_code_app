@@ -14,33 +14,49 @@ class FingerprintDialog extends StatelessWidget {
         children: [
           // title
           Text(
-            'Verify order'.tr,
-            style: Get.textTheme.headlineMedium,
+            'Verify Pesanan'.tr,
+            style: Get.textTheme.headlineMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           // subtitle
           Text(
-            'Press your fingerprint'.tr,
+            'Finger Print'.tr,
             style: Get.textTheme.bodySmall!.copyWith(color: Colors.black),
           ),
 
-          30.verticalSpacingRadius,
+          30.verticalSpace,
 
           // fingerprint icon
           GestureDetector(
             child: Icon(Icons.fingerprint,
-                size: 80.r, color: Theme.of(context).primaryColor),
+                size: 120.r, color: Theme.of(context).primaryColor),
             onTap: () => Get.back<String>(result: 'fingerprint'),
           ),
 
-          30.verticalSpacingRadius,
+          30.verticalSpace,
+
+          Row(children: <Widget>[
+            32.horizontalSpace,
+            const Expanded(child: Divider()),
+            8.horizontalSpace,
+            Text(
+              "atau",
+              style: TextStyle(fontSize: 14.sp),
+            ),
+            8.horizontalSpace,
+            const Expanded(child: Divider()),
+            32.horizontalSpace,
+          ]),
 
           // verify using pin code
           TextButton(
             onPressed: () => Get.back<String>(result: 'pin'),
             child: Text(
-              'Verify using PIN code',
-              style: Get.textTheme.titleSmall!
-                  .copyWith(color: Theme.of(context).primaryColor),
+              'Verifikasi Menggunakan PIN',
+              style: Get.textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],

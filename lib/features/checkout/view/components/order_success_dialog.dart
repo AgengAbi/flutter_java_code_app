@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/constants/cores/assets/svg_constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class OrderSuccessDialog extends StatelessWidget {
@@ -13,14 +15,14 @@ class OrderSuccessDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           28.verticalSpace,
-          Icon(
-            Icons.check_circle,
-            size: 80.r,
-            color: Theme.of(context).primaryColor,
+          SvgPicture.asset(
+            SvgConstant.icfrying,
+            width: 150.r,
+            height: 150.r,
           ),
           28.verticalSpace,
           Text(
-            'Order is being prepared'.tr,
+            'Pesanan Sedang Disiapkan'.tr,
             style: Get.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w400,
             ),
@@ -30,13 +32,13 @@ class OrderSuccessDialog extends StatelessWidget {
           Text.rich(
             TextSpan(children: [
               TextSpan(
-                text: 'You can track your order in',
+                text: 'Kamu dapat melacak \npesanamnu di fitur',
                 style: Get.textTheme.bodySmall!.copyWith(
                   color: Colors.black,
                 ),
               ),
               TextSpan(
-                text: ' ${'Order history'}',
+                text: ' ${'Pesanan'.tr}',
                 style: Get.textTheme.bodySmall!.copyWith(
                   fontWeight: FontWeight.w800,
                   color: Colors.black,
