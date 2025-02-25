@@ -17,7 +17,7 @@ enum BottomSheetFormType {
   radio,
   checkbox,
   datePicker,
-  language
+  language,
 }
 
 enum FieldType { none, name, date, phone, email, pin }
@@ -30,7 +30,7 @@ class ListTileApp extends StatelessWidget {
   final dynamic leading;
 
   /// The main title text.
-  final String title;
+  final Widget title;
 
   /// The subtitle text.
   final String subtitle;
@@ -58,13 +58,17 @@ class ListTileApp extends StatelessWidget {
 
   // For Subtitle customization
   final bool subtitleBold; // Bold subtitle
-  final Color? subtitleColor; // Color for subtitle
+  final Color? subtitleColor; // Color for
+  final bool titleBold; // Bold title
 
-  const ListTileApp({
+  // Callback custom for when user click on ListTile
+  final VoidCallback? onTapCustom;
+
+  ListTileApp({
     super.key,
     this.menu,
     this.leading,
-    required this.title,
+    required dynamic title,
     required this.subtitle,
     this.titleBottomSheet,
     this.bottomSheetFormType = BottomSheetFormType.none,
@@ -74,8 +78,10 @@ class ListTileApp extends StatelessWidget {
     this.onSubmitText,
     this.fieldType = FieldType.none,
     this.subtitleBold = false,
+    this.titleBold = false,
     this.subtitleColor,
-  });
+    this.onTapCustom,
+  }) : title = title is String ? Text(title) : title as Widget;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +92,7 @@ class ListTileApp extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title),
+          Expanded(child: _buildTitleWidget(context)),
           Container(
             constraints: BoxConstraints(
               maxWidth: 120.w,
@@ -104,10 +110,19 @@ class ListTileApp extends StatelessWidget {
         ],
       ),
       // Display trailing icon if bottom sheet form type is not none.
-      trailing: bottomSheetFormType == BottomSheetFormType.none
-          ? null
-          : const Icon(Icons.chevron_right),
+      trailing:
+          bottomSheetFormType == BottomSheetFormType.none && onTapCustom == null
+              ? null
+              : const Icon(Icons.chevron_right),
       onTap: () {
+        // if bottom sheet form type is link, call onTapCustom if it's not null,
+        // can use to navigate to another page or something
+        if (bottomSheetFormType == BottomSheetFormType.none) {
+          if (onTapCustom != null) {
+            onTapCustom!();
+          }
+          return;
+        }
         switch (bottomSheetFormType) {
           case BottomSheetFormType.none:
             // Do nothing.
@@ -130,6 +145,25 @@ class ListTileApp extends StatelessWidget {
         }
       },
     );
+  }
+
+  // Build title widget
+  Widget _buildTitleWidget(BuildContext context) {
+    if (title is Text) {
+      final Text textWidget = title as Text;
+      final TextStyle baseStyle =
+          textWidget.style ?? DefaultTextStyle.of(context).style;
+      return Text(
+        textWidget.data ?? "",
+        style: baseStyle.copyWith(
+          fontWeight: titleBold ? FontWeight.bold : baseStyle.fontWeight,
+        ),
+        textAlign: textWidget.textAlign,
+        maxLines: textWidget.maxLines,
+        overflow: textWidget.overflow,
+      );
+    }
+    return title;
   }
 
   /// Displays a bottom sheet containing a TextFormField and an IconButton.
@@ -155,7 +189,8 @@ class ListTileApp extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      titleBottomSheet ?? title,
+                      titleBottomSheet ??
+                          (title is Text ? (title as Text).data! : ''),
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -295,10 +330,10 @@ class ListTileApp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      titleBottomSheet ?? title,
+                      titleBottomSheet ??
+                          (title is Text ? (title as Text).data! : ''),
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.left,
                     ),
                     const SizedBox(height: 10),
                     SingleChildScrollView(
@@ -374,10 +409,10 @@ class ListTileApp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      titleBottomSheet ?? title,
+                      titleBottomSheet ??
+                          (title is Text ? (title as Text).data! : ''),
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.left,
                     ),
                     const SizedBox(height: 10),
                     SingleChildScrollView(

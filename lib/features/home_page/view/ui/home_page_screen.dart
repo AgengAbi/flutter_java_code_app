@@ -17,15 +17,17 @@ class HomePageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: const UniversalAppBar(
+            appBar: UniversalAppBar(
               showSearch: true,
-              // onSearchChanged: (value) => HomePageController.to.keyword(value),
+              onSearchChanged: (value) => HomePageController.to.keyword(value),
             ),
             body: SmartRefresher(
-              // ! bug on refresh
               controller: HomePageController.to.homeRefreshController,
-              // enablePullDown: true,
-              // onRefresh: HomePageController.to.onInit,
+              enablePullDown: true,
+              onRefresh: () async {
+                HomePageController.to.getHomePageData();
+                HomePageController.to.homeRefreshController.refreshCompleted();
+              },
               // enablePullUp: HomePageController.to.canLoadMore.isTrue,
               // onLoading: HomePageController.to.onInit,
               // remove 'load failed' on bottom page

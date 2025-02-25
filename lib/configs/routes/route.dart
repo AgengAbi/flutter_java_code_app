@@ -12,4 +12,6 @@ abstract class Routes {
   static const String homePageMenuDetailsRoute = '/home_page_menu_details';
   static const String orderOrderDetailsRoute = '/order_order_details';
   static const String checkoutRoute = '/checkout';
+  static const String checkoutVoucherRoute = '/checkout_voucher';
+  static const String checkoutVoucherDetailRoute = '/voucher_detail';
 }

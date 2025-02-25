@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/shared/styles/color_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -97,24 +98,38 @@ class UniversalAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ],
         ),
-        child: TextField(
-          controller: searchController,
-          style: Get.textTheme.labelSmall?.copyWith(fontSize: 18.sp),
-          maxLines: 1,
-          onChanged: onSearchChanged,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(30.r)),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.r),
-              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.r),
+                borderSide: BorderSide(color: Colors.grey[400]!, width: 1.5),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.r),
+                borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor, width: 1.5),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.r),
+                borderSide:
+                    const BorderSide(color: ColorStyle.primary, width: 2),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+              isDense: true,
             ),
-            isDense: true,
-            prefixIcon: Icon(Icons.search, size: 26.h),
-            prefixIconColor: Theme.of(context).primaryColor,
-            hintText: 'Search'.tr,
-            hintStyle: Get.textTheme.labelSmall?.copyWith(fontSize: 14.sp),
+          ),
+          child: TextField(
+            controller: searchController,
+            style: Get.textTheme.labelSmall?.copyWith(fontSize: 18.sp),
+            maxLines: 1,
+            onChanged: onSearchChanged,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search,
+                  size: 26.h, color: Theme.of(context).primaryColor),
+              hintText: 'Search'.tr,
+              hintStyle: Get.textTheme.labelSmall?.copyWith(fontSize: 14.sp),
+            ),
           ),
         ),
       );

@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_java_code_app/configs/routes/route.dart';
 import 'package:flutter_java_code_app/features/checkout/repositories/checkout_repository.dart';
+import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/controllers/checkout_voucher_controller.dart';
 import 'package:flutter_java_code_app/features/checkout/view/components/finger_print_dialog.dart';
 import 'package:flutter_java_code_app/features/checkout/view/components/order_success_dialog.dart';
 import 'package:flutter_java_code_app/features/checkout/view/components/pin_dialog.dart';
@@ -15,6 +18,12 @@ import 'package:local_auth/local_auth.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get to => Get.find();
+
+  // Discount dummy
+  static final List<Map<String, String>> discountDummy = [
+    {'title': 'Mengisi Survey', 'value': '10%'},
+    {'title': 'Terlambat <3x', 'value': '10%'},
+  ];
 
   // Get order list from HomePageController
   RxList<MenuUI> get orderList => HomePageController.to.orderList;
@@ -49,7 +58,25 @@ class CheckoutController extends GetxController {
 
   int get discountPrice => totalPrice * 20 ~/ 100;
 
-  int get grandTotalPrice => totalPrice - discountPrice;
+  int get voucherDiscount {
+    if (CheckoutVoucherController.selectedVoucherId.value != null) {
+      try {
+        final voucher = CheckoutVoucherController.vouchers.firstWhere(
+          (v) =>
+              v.idVoucher == CheckoutVoucherController.selectedVoucherId.value,
+        );
+        return voucher.nominal;
+      } catch (e) {
+        return 0;
+      }
+    }
+    return 0;
+  }
+
+  int get grandTotalPrice {
+    final grand = totalPrice - discountPrice - voucherDiscount;
+    return max(grand, 0);
+  }
 
   static Future<bool> hasBiometrics() async {
     try {

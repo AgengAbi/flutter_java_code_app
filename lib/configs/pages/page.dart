@@ -1,5 +1,7 @@
 import 'package:flutter_java_code_app/configs/routes/route.dart';
 import 'package:flutter_java_code_app/features/checkout/bindings/checkout_binding.dart';
+import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/view/ui/voucher_detail.dart';
+import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/view/ui/voucher_screen.dart';
 import 'package:flutter_java_code_app/features/checkout/view/ui/checkout_screen.dart';
 import 'package:flutter_java_code_app/features/get_location/bindings/get_location_binding.dart';
 import 'package:flutter_java_code_app/features/get_location/view/ui/get_location_screen.dart';
@@ -89,6 +91,20 @@ abstract class Pages {
       name: Routes.checkoutRoute,
       page: () => CheckoutScreen(),
       binding: CheckoutBinding(),
+    ),
+
+    // Checkout Voucher
+    GetPage(
+      name: Routes.checkoutVoucherRoute,
+      page: () => VoucherScreen(),
+      binding: CheckoutVoucherBinding(),
+    ),
+
+    // Checkout Voucher Detail
+    GetPage(
+      name: Routes.checkoutVoucherDetailRoute,
+      page: () => const VoucherDetail(),
+      binding: CheckoutVoucherBinding(),
     ),
   ];
 }

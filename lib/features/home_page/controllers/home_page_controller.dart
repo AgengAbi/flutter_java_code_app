@@ -35,8 +35,12 @@ class HomePageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getPromos();
-    getMenus();
+    getHomePageData();
+  }
+
+  Future<void> getHomePageData() async {
+    await getPromos();
+    await getMenus();
   }
 
   Future<void> getPromos() async {

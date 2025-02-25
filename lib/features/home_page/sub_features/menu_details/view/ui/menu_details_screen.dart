@@ -168,36 +168,36 @@ class MenuDetailsScreen extends StatelessWidget {
                 ),
                 24.verticalSpace,
                 // Debug section untuk menampilkan data level dan topping
-                Container(
-                  margin: EdgeInsets.only(top: 16.r),
-                  padding: EdgeInsets.all(8.r),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "DEBUG INFO",
-                        style: GoogleTextStyle.fw600.copyWith(
-                          fontSize: 16.sp,
-                          color: Colors.red,
-                        ),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        "Levels: ${menu.level != null ? menu.level!.map((lvl) => lvl.toJson().toString()).join(', ') : 'Tidak ada level'}",
-                        style: GoogleTextStyle.fw400.copyWith(fontSize: 14.sp),
-                      ),
-                      8.verticalSpace,
-                      Text(
-                        "Toppings: ${menu.topping != null ? menu.topping!.map((top) => top.toJson().toString()).join(', ') : 'Tidak ada topping'}",
-                        style: GoogleTextStyle.fw400.copyWith(fontSize: 14.sp),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(top: 16.r),
+                //   padding: EdgeInsets.all(8.r),
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey.shade200,
+                //     borderRadius: BorderRadius.circular(8.r),
+                //   ),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         "DEBUG INFO",
+                //         style: GoogleTextStyle.fw600.copyWith(
+                //           fontSize: 16.sp,
+                //           color: Colors.red,
+                //         ),
+                //       ),
+                //       8.verticalSpace,
+                //       Text(
+                //         "Levels: ${menu.level != null ? menu.level!.map((lvl) => lvl.toJson().toString()).join(', ') : 'Tidak ada level'}",
+                //         style: GoogleTextStyle.fw400.copyWith(fontSize: 14.sp),
+                //       ),
+                //       8.verticalSpace,
+                //       Text(
+                //         "Toppings: ${menu.topping != null ? menu.topping!.map((top) => top.toJson().toString()).join(', ') : 'Tidak ada topping'}",
+                //         style: GoogleTextStyle.fw400.copyWith(fontSize: 14.sp),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

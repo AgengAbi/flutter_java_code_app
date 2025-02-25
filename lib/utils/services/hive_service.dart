@@ -1,3 +1,4 @@
+import 'package:flutter_java_code_app/features/checkout/sub_features/voucher/models/voucher.dart';
 import 'package:flutter_java_code_app/features/home_page/models/menu.dart';
 import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/models/promo.dart';
@@ -21,8 +22,9 @@ class LocalStorageService extends GetxService {
   // Level * typeId 6
   // Topping * typeId 7
   static late Box<OrderModel> orderAPIBox; // * typeId: 8
-  static late Box<MenuModel> menuOrderAPiBox; // * typeId: 9
-  static late Box<OrderDetailModel> menuOrderAPOBox; // * typeId: 10
+  static late Box<MenuModel> menuOrderAPIBox; // * typeId: 9
+  static late Box<OrderDetailModel> menuOrderDetailAPIBox; // * typeId: 10
+  static late Box<Voucher> voucherBox;
   static late Box<String> languageBox;
 
   // Declare all model that needed
