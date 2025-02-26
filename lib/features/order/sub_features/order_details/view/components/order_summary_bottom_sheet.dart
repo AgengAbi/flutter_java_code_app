@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/constants/cores/assets/svg_constant.dart';
 import 'package:flutter_java_code_app/features/order/sub_features/order_details/controllers/order_order_details_controller.dart';
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
+import 'package:flutter_java_code_app/shared/styles/google_text_style.dart';
+import 'package:flutter_java_code_app/shared/widgets/list_tile_app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -71,81 +74,49 @@ class OrderSummaryBottomSheet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+            ListTileApp(
+              title: RichText(
+                text: TextSpan(
+                  text: 'Total Pensanan ',
+                  style: GoogleTextStyle.fw600.copyWith(
+                    fontSize: 18.sp,
+                    color: Colors.black,
+                  ),
                   children: [
-                    const Text(
-                      'Total Pesanan:',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    8.horizontalSpace,
-                    Text(
-                      '($totalOrder Menu)',
-                      style: const TextStyle(fontSize: 18),
+                    TextSpan(
+                      text: '($totalOrder Menu)',
+                      style: GoogleTextStyle.fw400
+                          .copyWith(fontSize: 18.sp, color: Colors.black),
                     ),
                   ],
                 ),
-                Text(
-                  'Rp. $totalPrice',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: ColorStyle.info,
-                  ),
-                ),
-              ],
+              ),
+              subtitle: 'Rp $totalPrice',
+              subtitleBold: true,
+              subtitleColor: ColorStyle.info,
             ),
             const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Voucher:',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Column(
-                  children: [
-                    Text(
-                      'Rp.$voucher',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.red,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            ListTileApp(
+              leading: SvgConstant.icVoucher,
+              title: 'Voucher',
+              titleBold: true,
+              subtitle: 'Rp. $voucher',
+              subtitleColor: Colors.red,
             ),
             const Divider(),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Pembayaran:',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text('Pay Later', style: TextStyle(fontSize: 18)),
-              ],
+            ListTileApp(
+              leading: SvgConstant.icPayment,
+              title: 'Pembayaran',
+              titleBold: true,
+              subtitle: 'Pay Later',
             ),
             const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Total Pembayaran',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'Rp $totalPayment',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: ColorStyle.info,
-                  ),
-                ),
-              ],
+            ListTileApp(
+              title: 'Total Pembayaran',
+              titleBold: true,
+              subtitle: 'Rp. $totalPayment',
+              subtitleColor: ColorStyle.info,
+              subtitleBold: true,
             ),
             const Divider(),
             16.verticalSpace,

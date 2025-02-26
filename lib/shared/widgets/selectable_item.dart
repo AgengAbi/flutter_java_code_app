@@ -23,10 +23,10 @@ class SelectableItem<T> extends StatelessWidget {
         margin: const EdgeInsets.only(right: 8.0),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         decoration: BoxDecoration(
-          border: Border.all(
-              color: isSelected ? ColorStyle.primary : ColorStyle.primary),
+          border:
+              Border.all(color: isSelected ? ColorStyle.info : ColorStyle.info),
           borderRadius: BorderRadius.circular(16),
-          color: isSelected ? ColorStyle.primary : Colors.transparent,
+          color: isSelected ? ColorStyle.info : Colors.transparent,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

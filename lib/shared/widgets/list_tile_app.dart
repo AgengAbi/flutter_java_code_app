@@ -255,7 +255,7 @@ class ListTileApp extends StatelessWidget {
                         height: 32.r,
                         width: 32.r,
                         decoration: BoxDecoration(
-                            color: ColorStyle.primary,
+                            color: ColorStyle.info,
                             borderRadius: BorderRadius.circular(30.r),
                             boxShadow: [
                               BoxShadow(
@@ -299,7 +299,7 @@ class ListTileApp extends StatelessWidget {
 
   Widget? _buildLeadingWidget() {
     if (leading is IconData) {
-      return Icon(leading, size: 28.r, color: ColorStyle.primary);
+      return Icon(leading, size: 28.r, color: ColorStyle.info);
     } else if (leading is String) {
       return SvgPicture.asset(
         leading,
@@ -526,7 +526,7 @@ class ListTileApp extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 color: selectedLanguage == "Indonesia"
-                                    ? ColorStyle.primary
+                                    ? ColorStyle.info
                                     : Colors.grey[300],
                                 borderRadius: BorderRadius.circular(8)),
                             alignment: Alignment.center,
@@ -570,7 +570,7 @@ class ListTileApp extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 color: selectedLanguage == "English"
-                                    ? ColorStyle.primary
+                                    ? ColorStyle.info
                                     : Colors.grey[300],
                                 borderRadius: BorderRadius.circular(8)),
                             alignment: Alignment.center,
