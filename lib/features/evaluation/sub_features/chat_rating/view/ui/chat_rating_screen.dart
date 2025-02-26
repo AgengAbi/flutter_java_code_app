@@ -22,7 +22,6 @@ class ChatRatingScreen extends StatelessWidget {
       backgroundColor: const Color(0xffF0F0F0),
       body: Column(
         children: [
-          // Bagian chat
           Expanded(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
@@ -46,9 +45,9 @@ class ChatRatingScreen extends StatelessWidget {
                       color: ColorStyle.info,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Text(
-                      '26 Januari 2022',
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    child: Text(
+                      EvaluationChatRatingController.formattedDate,
+                      style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ),
                   // Daftar pesan
@@ -74,10 +73,11 @@ class ChatRatingScreen extends StatelessWidget {
                                     : Colors.grey[200],
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              // Jika ada imagePath, tampilkan gambar
-                              // Jika tidak, tampilkan jam + ikon + teks
+                              // If imagePath is not null, display image
+                              // If imagePath is null, display bubble
                               child: msg.imagePath != null
-                                  ? Image.file(File(msg.imagePath!))
+                                  ? _buildImageBubble(
+                                      msg.imagePath!, msg.timestamp, isUser)
                                   : _buildTextBubble(
                                       msg.text ?? '',
                                       msg.timestamp,
@@ -93,7 +93,7 @@ class ChatRatingScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Bagian input (textfield + tombol)
+          // Input Section (textfield + buttons)
           Container(
             padding: EdgeInsets.all(8.r),
             decoration: BoxDecoration(
@@ -141,7 +141,6 @@ class ChatRatingScreen extends StatelessWidget {
     );
   }
 
-  /// Membangun bubble teks dengan jam + ikon
   Widget _buildTextBubble(String text, DateTime timestamp, bool isUser) {
     final timeString = _formatTime(timestamp);
     return Column(
@@ -172,6 +171,40 @@ class ChatRatingScreen extends StatelessWidget {
         ),
         4.verticalSpace,
         Text(text),
+      ],
+    );
+  }
+
+  Widget _buildImageBubble(String imagePath, DateTime timestamp, bool isUser) {
+    final timeString = _formatTime(timestamp);
+    return Column(
+      crossAxisAlignment:
+          isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: isUser
+              ? [
+                  Text(
+                    timeString,
+                    style: const TextStyle(fontSize: 12, color: Colors.black54),
+                  ),
+                  4.horizontalSpace,
+                  const Icon(Icons.account_circle_rounded,
+                      size: 14, color: ColorStyle.primary),
+                ]
+              : [
+                  const Icon(Icons.account_circle_rounded,
+                      size: 14, color: ColorStyle.primary),
+                  4.horizontalSpace,
+                  Text(
+                    timeString,
+                    style: const TextStyle(fontSize: 12, color: Colors.black54),
+                  ),
+                ],
+        ),
+        4.verticalSpace,
+        Image.file(File(imagePath)),
       ],
     );
   }

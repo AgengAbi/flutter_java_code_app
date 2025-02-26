@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/features/evaluation/models/rating.dart';
-import 'package:flutter_java_code_app/features/evaluation/sub_features/chat_rating/models/ChatMessage.dart';
+import 'package:flutter_java_code_app/features/evaluation/sub_features/chat_rating/models/chat_message.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class EvaluationChatRatingController extends GetxController {
   static EvaluationChatRatingController get to => Get.find();
@@ -12,11 +13,17 @@ class EvaluationChatRatingController extends GetxController {
   final ImagePicker _picker = ImagePicker();
 
   late Rating ratingItem;
+  static late String formattedDate;
+
+  static String _formatDate(DateTime dateTime) {
+    return DateFormat('dd MMMM yyyy', 'id_ID').format(dateTime);
+  }
 
   @override
   void onInit() {
     super.onInit();
     ratingItem = Get.arguments ?? 0;
+    formattedDate = _formatDate(ratingItem.createdAt);
     if (messages.isEmpty) {
       messages.add(ChatMessage(
         sender: 'admin',
