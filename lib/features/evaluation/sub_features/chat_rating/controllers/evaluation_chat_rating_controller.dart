@@ -22,21 +22,40 @@ class EvaluationChatRatingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    ratingItem = Get.arguments ?? 0;
+    if (Get.arguments != null) {
+      ratingItem = Get.arguments as Rating;
+    } else {
+      ratingItem = Rating(
+        id: 0,
+        rating: 0,
+        improvements: [],
+        review: '',
+        imagePath: null,
+        createdAt: DateTime.now(),
+      );
+    }
     formattedDate = _formatDate(ratingItem.createdAt);
     if (messages.isEmpty) {
-      messages.add(ChatMessage(
-        sender: 'admin',
-        text: 'Review sebelumnya: Penilaian Anda telah diterima. Terima kasih!',
-        imagePath: null,
-        timestamp: DateTime.now(),
-      ));
+      // messages.add(ChatMessage(
+      //   sender: 'admin',
+      //   text: 'Review sebelumnya: Penilaian Anda telah diterima. Terima kasih!',
+      //   imagePath: null,
+      //   timestamp: DateTime.now(),
+      // ));
       messages.add(ChatMessage(
         sender: 'user',
         text: ratingItem.review,
         imagePath: null,
         timestamp: DateTime.now(),
       ));
+      if (ratingItem.imagePath != null && ratingItem.imagePath!.isNotEmpty) {
+        messages.add(ChatMessage(
+          sender: 'user',
+          text: ratingItem.review,
+          imagePath: ratingItem.imagePath,
+          timestamp: DateTime.now(),
+        ));
+      }
       Future.delayed(const Duration(seconds: 2), () {
         messages.add(ChatMessage(
           sender: 'admin',

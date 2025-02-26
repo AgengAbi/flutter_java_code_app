@@ -104,7 +104,7 @@ class MenuCard extends StatelessWidget {
                           Text(
                             'Rp. ${NumberFormat("#,##0", "id_ID").format(menu.harga)}',
                             style: const TextStyle(
-                              color: ColorStyle.primary,
+                              color: ColorStyle.info,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -112,7 +112,7 @@ class MenuCard extends StatelessWidget {
                             children: [
                               const Icon(
                                 Icons.edit_note,
-                                color: ColorStyle.primary,
+                                color: ColorStyle.info,
                               ),
                               Expanded(
                                 child: Text(

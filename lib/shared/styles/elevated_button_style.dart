@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ElevatedButtonStyle {
   /// Main Elevated Button Style
   static ButtonStyle get mainRounded => ElevatedButton.styleFrom(
-        backgroundColor: ColorStyle.primary,
+        backgroundColor: ColorStyle.info,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),

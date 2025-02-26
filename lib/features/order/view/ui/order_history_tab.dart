@@ -101,7 +101,11 @@ class OrderHistoryTabView extends StatelessWidget {
                           },
                         );
                       },
-                      onGiveReview: () {},
+                      onGiveReview: () {
+                        Get.toNamed(
+                          Routes.createEvaluationRoute,
+                        );
+                      },
                       onOrderAgain: () {},
                     ),
                     separatorBuilder: (context, index) => 16.verticalSpace,

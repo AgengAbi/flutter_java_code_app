@@ -25,7 +25,7 @@ class QuantityControl extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(5.r),
               border: Border.all(
-                color: ColorStyle.primary,
+                color: ColorStyle.info,
                 width: 2.w,
               ),
             ),
@@ -36,7 +36,7 @@ class QuantityControl extends StatelessWidget {
                 padding: EdgeInsets.all(2.r),
                 child: Icon(
                   Icons.remove,
-                  color: ColorStyle.primary,
+                  color: ColorStyle.info,
                   size: 22.sp,
                 ),
               ),
@@ -53,10 +53,10 @@ class QuantityControl extends StatelessWidget {
         // Increment button always visible.
         Container(
           decoration: BoxDecoration(
-            color: ColorStyle.primary,
+            color: ColorStyle.info,
             borderRadius: BorderRadius.circular(5.r),
             border: Border.all(
-              color: ColorStyle.primary,
+              color: ColorStyle.info,
               width: 2.w,
             ),
           ),

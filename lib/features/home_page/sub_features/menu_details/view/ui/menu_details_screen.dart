@@ -73,7 +73,7 @@ class MenuDetailsScreen extends StatelessWidget {
                         maxLines: 2,
                         style: GoogleTextStyle.fw600.copyWith(
                           fontSize: 24.sp,
-                          color: ColorStyle.primary,
+                          color: ColorStyle.info,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -103,7 +103,7 @@ class MenuDetailsScreen extends StatelessWidget {
                 ListTileApp(
                   leading: SvgConstant.icPrice,
                   subtitleBold: true,
-                  subtitleColor: ColorStyle.primary,
+                  subtitleColor: ColorStyle.info,
                   title: 'Harga',
                   subtitle: menu.harga.toString(),
                 ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/features/evaluation/models/rating.dart';
+import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:flutter_java_code_app/utils/services/hive_service.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -100,6 +101,22 @@ class EvaluationController extends GetxController {
     showSubmittedData.value = true;
 
     Get.snackbar('Berhasil', 'Penilaian Anda telah dikirim!');
+
+    rating.value = 0;
+    selectedImprovements.clear();
+    reviewController.text = '';
+    selectedImage.value = null;
+    showSubmittedData.value = false;
+
+    tryGoBack();
+  }
+
+  void tryGoBack() {
+    if (Navigator.canPop(Get.context!)) {
+      Navigator.pop(Get.context!);
+    } else {
+      AppLogger.d('Tidak ada halaman sebelumnya dalam stack');
+    }
   }
 
   @override

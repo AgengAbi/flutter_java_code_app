@@ -73,7 +73,7 @@ abstract class Pages {
     GetPage(
       name: Routes.createEvaluationRoute,
       page: () => const CreateEvaluationScreen(),
-      binding: EvaluationChatBinding(),
+      binding: EvaluationBinding(),
     ),
 
     // Evaluation Chat Rating

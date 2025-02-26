@@ -44,7 +44,7 @@ class ElevatedButtonStyles {
   static ButtonStyle primary = ElevatedButton.styleFrom(
     backgroundColor: ColorStyle.info,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(30),
       side: const BorderSide(color: ColorStyle.primary),
     ),
     foregroundColor: Colors.white,
@@ -53,7 +53,7 @@ class ElevatedButtonStyles {
   static ButtonStyle secondary = ElevatedButton.styleFrom(
     backgroundColor: Colors.white,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(30),
       side: const BorderSide(color: ColorStyle.primary),
     ),
     foregroundColor: ColorStyle.primary,

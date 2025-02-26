@@ -6,6 +6,7 @@ import 'package:flutter_java_code_app/features/profile/controllers/profile_contr
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
 import 'package:flutter_java_code_app/shared/styles/elevated_button_style.dart';
 import 'package:flutter_java_code_app/shared/widgets/list_tile_app.dart';
+import 'package:flutter_java_code_app/shared/widgets/universal_app_bar.dart';
 import 'package:flutter_java_code_app/utils/services/hive_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,19 +19,9 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        elevation: 2,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(
-          'Profile'.tr,
-          style: Get.textTheme.titleMedium,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(30.r),
-          ),
-        ),
+      appBar: UniversalAppBar(
+        title: 'Profile'.tr,
+        enableBackButton: false,
       ),
       body: Container(
         decoration: const BoxDecoration(
