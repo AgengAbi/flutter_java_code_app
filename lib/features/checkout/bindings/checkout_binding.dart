@@ -6,12 +6,6 @@ class CheckoutBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(CheckoutController());
-  }
-}
-
-class CheckoutVoucherBinding extends Bindings {
-  @override
-  void dependencies() {
     Get.put(CheckoutVoucherController());
   }
 }

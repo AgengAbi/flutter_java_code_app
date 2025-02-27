@@ -15,6 +15,7 @@ import 'package:flutter_java_code_app/features/home_page/sub_features/promo_deta
 import 'package:flutter_java_code_app/features/main_page/bindings/main_page_binding.dart';
 import 'package:flutter_java_code_app/features/main_page/view/ui/main_page_screen.dart';
 import 'package:flutter_java_code_app/features/order/bindings/order_binding.dart';
+import 'package:flutter_java_code_app/features/order/sub_features/order_again/view/ui/order_again_screen.dart';
 import 'package:flutter_java_code_app/features/order/sub_features/order_details/view/ui/order_details_screen.dart';
 import 'package:flutter_java_code_app/features/order/view/ui/order_screen.dart';
 import 'package:flutter_java_code_app/features/profile/bindings/profile_binding.dart';
@@ -97,6 +98,13 @@ abstract class Pages {
       binding: OrderDetailsBinding(),
     ),
 
+    // Order Again
+    GetPage(
+      name: Routes.orderOrderAgainRoute,
+      page: () => OrderAgainScreen(),
+      binding: OrderAgainBinding(),
+    ),
+
     // Promo Details
     GetPage(
       name: Routes.homePagePromoDetailsRoute,
@@ -122,14 +130,14 @@ abstract class Pages {
     GetPage(
       name: Routes.checkoutVoucherRoute,
       page: () => VoucherScreen(),
-      binding: CheckoutVoucherBinding(),
+      binding: CheckoutBinding(),
     ),
 
     // Checkout Voucher Detail
     GetPage(
       name: Routes.checkoutVoucherDetailRoute,
       page: () => const VoucherDetail(),
-      binding: CheckoutVoucherBinding(),
+      binding: CheckoutBinding(),
     ),
   ];
 }

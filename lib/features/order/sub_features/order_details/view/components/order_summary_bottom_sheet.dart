@@ -17,7 +17,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
       final totalOrder = order?.detail.length ?? 0;
       final totalPrice = order?.totalBayar ?? 0;
       final voucher = order?.potongan ?? 0;
-      final totalPayment = totalPrice - voucher;
+      final totalPayment = order?.totalBayar ?? 0;
       final status = order?.status ?? 0;
 
       // Function for build step
@@ -54,9 +54,9 @@ class OrderSummaryBottomSheet extends StatelessWidget {
         );
       }
 
-      final isStep1Active = status == 0;
-      final isStep2Active = status == 1;
-      final isStep3Active = status == 2;
+      final isStep1Active = status >= 0;
+      final isStep2Active = status >= 1;
+      final isStep3Active = status >= 2;
 
       return Container(
         padding: const EdgeInsets.all(16),
@@ -77,7 +77,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             ListTileApp(
               title: RichText(
                 text: TextSpan(
-                  text: 'Total Pensanan ',
+                  text: 'Total Pesanan ',
                   style: GoogleTextStyle.fw600.copyWith(
                     fontSize: 18.sp,
                     color: Colors.black,

@@ -65,6 +65,7 @@ class CheckoutController extends GetxController {
           (v) =>
               v.idVoucher == CheckoutVoucherController.selectedVoucherId.value,
         );
+        AppLogger.d(voucher.nominal.toString());
         return voucher.nominal;
       } catch (e) {
         return 0;
@@ -126,7 +127,6 @@ class CheckoutController extends GetxController {
           showOrderSuccessDialog();
         }
       } else if (authType == 'pin') {
-        // PIN authentication flow
         await showPinDialog();
       }
     } else {
@@ -217,11 +217,9 @@ class CheckoutController extends GetxController {
       return {
         "id_menu": menu.idMenu,
         "harga": menu.harga,
-        "level": menu.levelSelected?.keterangan,
+        "level": menu.levelSelected?.idDetail,
         "topping": menu.toppingSelected != null
-            ? menu.toppingSelected!
-                .map((topping) => topping.keterangan)
-                .toList()
+            ? menu.toppingSelected!.map((topping) => topping.idDetail).toList()
             : [],
         "jumlah": menu.quantity,
         "catatan": menu.note,
