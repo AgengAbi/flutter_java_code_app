@@ -18,4 +18,6 @@ abstract class Routes {
   static const String createEvaluationRoute = '/create_evaluation';
   static const String evaluationChatRatingRoute = '/evaluation_chat_rating';
   static const String orderOrderAgainRoute = '/order_order_again';
+  static const String orderOrderAgainDetailsRoute =
+      '/order_order_again_details';
 }

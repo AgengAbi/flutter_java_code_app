@@ -60,7 +60,12 @@ class ListTileApp extends StatelessWidget {
   // For Subtitle customization
   final bool subtitleBold; // Bold subtitle
   final Color? subtitleColor; // Color for
-  final bool titleBold; // Bold title
+  final bool titleBold; // Bold
+
+  // Callback custom for when user update data
+  final Function(Level)? onUpdateLevel;
+  final Function(List<Topping>)? onUpdateTopping;
+  final Function(String)? onUpdateNote;
 
   // Callback custom for when user click on ListTile
   final VoidCallback? onTapCustom;
@@ -82,6 +87,9 @@ class ListTileApp extends StatelessWidget {
     this.titleBold = false,
     this.subtitleColor,
     this.onTapCustom,
+    this.onUpdateLevel,
+    this.onUpdateTopping,
+    this.onUpdateNote,
   }) : title = title is String ? Text(title) : title as Widget;
 
   @override
@@ -274,14 +282,12 @@ class ListTileApp extends StatelessWidget {
                               AppLogger.d('TextForm submitted: $newText');
                               if (onSubmitText != null) {
                                 onSubmitText!(newText);
-                              } else if (formKeyModal.currentState!
-                                  .validate()) {
-                                final newText = controller.text.trim();
-                                AppLogger.d('TextForm submitted: $newText');
-                                HomePageMenuDetailsController.to
-                                    .updateMenuNote(newText);
-                                Navigator.pop(context);
+                              } else if (onUpdateNote != null) {
+                                onUpdateNote!(newText);
+                              } else {
+                                // Default behavior jika callback tidak disediakan
                               }
+                              Navigator.pop(context);
                             }
                           },
                         ),
@@ -360,9 +366,16 @@ class ListTileApp extends StatelessWidget {
                                     AppLogger.d(
                                         'Choice selected: ${selectedItem.keterangan}');
 
+                                    AppLogger.d(
+                                        'Choice selected: ${selectedItem.keterangan}');
                                     if (menu != null) {
-                                      HomePageMenuDetailsController.to
-                                          .updateMenuLevel(selectedItem);
+                                      // Use callback if provided, otherwise use HomePageMenuDetailsController
+                                      if (onUpdateLevel != null) {
+                                        onUpdateLevel!(selectedItem);
+                                      } else {
+                                        HomePageMenuDetailsController.to
+                                            .updateMenuLevel(selectedItem);
+                                      }
                                     }
                                   },
                                 );
@@ -419,48 +432,53 @@ class ListTileApp extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: (checkboxItems == null ||
-                                checkboxItems!.isEmpty)
-                            ? [
-                                const Text(
-                                  'Topping tidak tersedia untuk menu ini',
-                                  style: TextStyle(fontSize: 16),
-                                )
-                              ]
-                            : checkboxItems!.asMap().entries.map((entry) {
-                                int index = entry.key;
-                                Topping toppingItem = entry.value;
-                                bool isSelected = selectedList[index];
+                        children:
+                            (checkboxItems == null || checkboxItems!.isEmpty)
+                                ? [
+                                    const Text(
+                                      'Topping tidak tersedia untuk menu ini',
+                                      style: TextStyle(fontSize: 16),
+                                    )
+                                  ]
+                                : checkboxItems!.asMap().entries.map((entry) {
+                                    int index = entry.key;
+                                    Topping toppingItem = entry.value;
+                                    bool isSelected = selectedList[index];
 
-                                return SelectableItem(
-                                  item: toppingItem,
-                                  isSelected: isSelected,
-                                  label: toppingItem.keterangan,
-                                  onTap: (selectedItem) {
-                                    setState(() {
-                                      selectedList[index] =
-                                          !selectedList[index];
-                                    });
+                                    return SelectableItem(
+                                      item: toppingItem,
+                                      isSelected: isSelected,
+                                      label: toppingItem.keterangan,
+                                      onTap: (selectedItem) {
+                                        setState(() {
+                                          selectedList[index] =
+                                              !selectedList[index];
+                                        });
 
-                                    AppLogger.d(
-                                        'Choice toggled: ${selectedItem.keterangan} now ${selectedList[index]}');
+                                        AppLogger.d(
+                                            'Choice toggled: ${selectedItem.keterangan} now ${selectedList[index]}');
 
-                                    if (menu != null) {
-                                      List<Topping> selectedToppings = [];
-                                      for (int i = 0;
-                                          i < (checkboxItems?.length ?? 0);
-                                          i++) {
-                                        if (selectedList[i]) {
-                                          selectedToppings
-                                              .add(checkboxItems![i]);
+                                        if (menu != null) {
+                                          List<Topping> selectedToppings = [];
+                                          for (int i = 0;
+                                              i < (checkboxItems?.length ?? 0);
+                                              i++) {
+                                            if (selectedList[i]) {
+                                              selectedToppings
+                                                  .add(checkboxItems![i]);
+                                            }
+                                          }
+                                          if (onUpdateTopping != null) {
+                                            onUpdateTopping!(selectedToppings);
+                                          } else {
+                                            HomePageMenuDetailsController.to
+                                                .updateMenuTopping(
+                                                    selectedToppings);
+                                          }
                                         }
-                                      }
-                                      HomePageMenuDetailsController.to
-                                          .updateMenuTopping(selectedToppings);
-                                    }
-                                  },
-                                );
-                              }).toList(),
+                                      },
+                                    );
+                                  }).toList(),
                       ),
                     ),
                   ],

@@ -7,6 +7,7 @@ import 'package:flutter_java_code_app/features/order/controllers/order_controlle
 import 'package:flutter_java_code_app/features/order/view/components/date_picker.dart';
 import 'package:flutter_java_code_app/features/order/view/components/dropdown_status.dart';
 import 'package:flutter_java_code_app/features/order/view/components/order_item_card.dart';
+import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -19,8 +20,11 @@ class OrderHistoryTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (OrderController.to.isLoading.value ||
-          OrderController.to.historyOrders.isEmpty) {
+      if (OrderController.to.isLoading.value) {
+        const CircularNotchedRectangle();
+      }
+      if (OrderController.to.filteredHistoryOrder.isEmpty) {
+        AppLogger.d('Empty history orders');
         return Container(
           width: double.infinity,
           height: double.infinity,
@@ -106,7 +110,15 @@ class OrderHistoryTabView extends StatelessWidget {
                           Routes.createEvaluationRoute,
                         );
                       },
-                      onOrderAgain: () {},
+                      onOrderAgain: () {
+                        Get.toNamed(
+                          Routes.orderOrderAgainRoute,
+                          arguments: {
+                            'orderId': OrderController
+                                .to.filteredHistoryOrder[index].idOrder,
+                          },
+                        );
+                      },
                     ),
                     separatorBuilder: (context, index) => 16.verticalSpace,
                     itemCount: OrderController.to.filteredHistoryOrder.length,

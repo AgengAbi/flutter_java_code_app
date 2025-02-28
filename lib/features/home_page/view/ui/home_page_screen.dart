@@ -28,17 +28,6 @@ class HomePageScreen extends StatelessWidget {
                 HomePageController.to.getHomePageData();
                 HomePageController.to.homeRefreshController.refreshCompleted();
               },
-              // enablePullUp: HomePageController.to.canLoadMore.isTrue,
-              // onLoading: HomePageController.to.onInit,
-              // remove 'load failed' on bottom page
-              // footer: CustomFooter(
-              //   builder: (context, mode) {
-              //     if (mode == LoadStatus.failed) {
-              //       return const SizedBox.shrink();
-              //     }
-              //     return Container();
-              //   },
-              // ),
               child: SingleChildScrollView(
                 child: Column(
                   children: [

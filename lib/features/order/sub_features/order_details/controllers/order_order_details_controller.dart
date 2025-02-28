@@ -21,7 +21,7 @@ class OrderDetailsController extends GetxController {
   }
 
   Future<void> getOrderDetails() async {
-    AppLogger.d('get order details : ${orderId.value}');
+    // AppLogger.d('get order details : ${orderId.value}');
     isLoading.value = true;
 
     final result =
@@ -37,9 +37,6 @@ class OrderDetailsController extends GetxController {
       },
     );
 
-    if ((orderItem.value?.detail.isNotEmpty ?? false)) {
-      AppLogger.d(orderItem.value!.detail[0].idMenu.toString());
-    }
     isLoading.value = false;
   }
 

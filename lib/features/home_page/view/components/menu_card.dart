@@ -14,9 +14,11 @@ import 'package:shimmer/shimmer.dart';
 class MenuCard extends StatelessWidget {
   final MenuUI menu;
   final bool isSelected;
+  final bool isOrderAgain;
   final void Function()? onIncrement;
   final void Function()? onDecrement;
   final bool isReactive;
+  final void Function()? onTap;
 
   const MenuCard({
     super.key,
@@ -25,6 +27,8 @@ class MenuCard extends StatelessWidget {
     this.onDecrement,
     this.isSelected = false,
     this.isReactive = true,
+    this.isOrderAgain = false,
+    this.onTap,
   });
 
   @override
@@ -54,11 +58,19 @@ class MenuCard extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () {
-                  AppLogger.d('MenuCard tapped for menu: ${menu.nama}');
-                  Get.toNamed(Routes.homePageMenuDetailsRoute,
-                      arguments: {'menuUI': menu});
-                },
+                onTap: onTap ??
+                    () {
+                      AppLogger.d('MenuCard tapped for menu: ${menu.nama}');
+                      if (isOrderAgain) {
+                        AppLogger.d('MenuCard to orderagain details');
+                        Get.toNamed(Routes.orderOrderAgainDetailsRoute,
+                            arguments: {'menuUI': menu});
+                      } else {
+                        AppLogger.d('MenuCard to homepage details');
+                        Get.toNamed(Routes.homePageMenuDetailsRoute,
+                            arguments: {'menuUI': menu});
+                      }
+                    },
                 child: Row(
                   children: [
                     Hero(

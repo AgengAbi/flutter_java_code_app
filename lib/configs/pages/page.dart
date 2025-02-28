@@ -16,6 +16,7 @@ import 'package:flutter_java_code_app/features/main_page/bindings/main_page_bind
 import 'package:flutter_java_code_app/features/main_page/view/ui/main_page_screen.dart';
 import 'package:flutter_java_code_app/features/order/bindings/order_binding.dart';
 import 'package:flutter_java_code_app/features/order/sub_features/order_again/view/ui/order_again_screen.dart';
+import 'package:flutter_java_code_app/features/order/sub_features/order_again_details/view/ui/order_again_details_screen.dart';
 import 'package:flutter_java_code_app/features/order/sub_features/order_details/view/ui/order_details_screen.dart';
 import 'package:flutter_java_code_app/features/order/view/ui/order_screen.dart';
 import 'package:flutter_java_code_app/features/profile/bindings/profile_binding.dart';
@@ -95,14 +96,21 @@ abstract class Pages {
     GetPage(
       name: Routes.orderOrderDetailsRoute,
       page: () => const OrderDetailsScreen(),
-      binding: OrderDetailsBinding(),
+      binding: OrderBinding(),
     ),
 
     // Order Again
     GetPage(
       name: Routes.orderOrderAgainRoute,
       page: () => OrderAgainScreen(),
-      binding: OrderAgainBinding(),
+      binding: OrderBinding(),
+    ),
+
+    // Order Again Details
+    GetPage(
+      name: Routes.orderOrderAgainDetailsRoute,
+      page: () => const OrderAgainMenuDetailsScreen(),
+      binding: OrderBinding(),
     ),
 
     // Promo Details

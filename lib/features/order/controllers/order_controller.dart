@@ -97,8 +97,8 @@ class OrderController extends GetxController {
     //     DateTime.parse(order.tanggal).isBefore(selectedDateRange.value.start) ||
     //     DateTime.parse(order.tanggal).isAfter(selectedDateRange.value.end));
 
-    historyOrderList.sort((a, b) =>
-        DateTime.parse(b.tanggal).compareTo(DateTime.parse(a.tanggal)));
+    historyOrderList.sort((a, b) => DateTime.parse(b.tanggal)
+        .compareTo(DateTime.parse(a.tanggal))); // ! usahakan pakai try parse
 
     return historyOrderList;
   }
