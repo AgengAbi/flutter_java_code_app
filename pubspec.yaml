@@ -122,3 +122,5 @@ flutter:
     - assets/svg/
     - assets/lottie/
     - assets/fonts/
+    - assets/lang/en_US/
+    - assets/lang/id_ID/

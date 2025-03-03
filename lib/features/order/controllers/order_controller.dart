@@ -93,35 +93,45 @@ class OrderController extends GetxController {
       historyOrderList.removeWhere((order) => order.status != 4);
     }
 
-    // historyOrderList.removeWhere((order) =>
-    //     DateTime.parse(order.tanggal).isBefore(selectedDateRange.value.start) ||
-    //     DateTime.parse(order.tanggal).isAfter(selectedDateRange.value.end));
+    historyOrderList.removeWhere((order) =>
+        DateTime.parse(order.tanggal)
+            .isBefore(selectedDateRangeOnHistory.value.start) ||
+        DateTime.parse(order.tanggal)
+            .isAfter(selectedDateRangeOnHistory.value.end));
 
-    historyOrderList.sort((a, b) => DateTime.parse(b.tanggal)
-        .compareTo(DateTime.parse(a.tanggal))); // ! usahakan pakai try parse
+    historyOrderList.sort((a, b) {
+      final dateA = DateTime.tryParse(a.tanggal) ?? DateTime(0);
+      final dateB = DateTime.tryParse(b.tanggal) ?? DateTime(0);
+      return dateB.compareTo(dateA);
+    });
 
     return historyOrderList;
   }
 
   List<OrderModel> get filteredOnGoingOrder {
-    final historyOrderList = onGoingOrders.toList();
+    final onGoingOrderList = onGoingOrders.toList();
 
     if (selectedCategoryOnGoing.value == 'order received') {
-      historyOrderList.removeWhere((order) => order.status != 0);
+      onGoingOrderList.removeWhere((order) => order.status != 0);
     } else if (selectedCategoryOnGoing.value == 'please take it') {
-      historyOrderList.removeWhere((order) => order.status != 1);
+      onGoingOrderList.removeWhere((order) => order.status != 1);
     } else if (selectedCategoryOnGoing.value == 'order complated') {
-      historyOrderList.removeWhere((order) => order.status != 2);
+      onGoingOrderList.removeWhere((order) => order.status != 2);
     }
 
-    // historyOrderList.removeWhere((order) =>
-    //     DateTime.parse(order.tanggal).isBefore(selectedDateRange.value.start) ||
-    //     DateTime.parse(order.tanggal).isAfter(selectedDateRange.value.end));
+    onGoingOrderList.removeWhere((order) =>
+        DateTime.parse(order.tanggal)
+            .isBefore(selectedDateRangeOnGoing.value.start) ||
+        DateTime.parse(order.tanggal)
+            .isAfter(selectedDateRangeOnGoing.value.end));
 
-    historyOrderList.sort((a, b) =>
-        DateTime.parse(b.tanggal).compareTo(DateTime.parse(a.tanggal)));
+    onGoingOrderList.sort((a, b) {
+      final dateA = DateTime.tryParse(a.tanggal) ?? DateTime(0);
+      final dateB = DateTime.tryParse(b.tanggal) ?? DateTime(0);
+      return dateB.compareTo(dateA);
+    });
 
-    return historyOrderList;
+    return onGoingOrderList;
   }
 
   void setDateFilterHistory({String? category, DateTimeRange? range}) {

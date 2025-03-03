@@ -50,7 +50,7 @@ class CartOrderBottomBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Total payment',
+                  'Total pembayaran'.tr,
                   style: Get.textTheme.labelLarge!
                       .copyWith(fontSize: 18.sp, color: Colors.black87),
                 ),
@@ -88,11 +88,14 @@ class CartOrderBottomBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Order Now',
+                    'Pesan sekarang'.tr,
                     textAlign: TextAlign.center,
+                    maxLines: 2,
+                    softWrap: true,
+                    overflow: TextOverflow.clip,
                     style: Get.textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.w800,
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       color: Colors.white,
                     ),
                   ),

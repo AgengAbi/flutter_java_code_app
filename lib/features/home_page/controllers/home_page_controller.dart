@@ -24,7 +24,7 @@ class HomePageController extends GetxController {
   RxList<String> uniqueCategories = <String>[].obs;
   final RxBool isCategoryLoading = true.obs;
   final RxString keyword = ''.obs;
-  final RxString selectedCategory = 'semua menu'.obs;
+  final RxString selectedCategory = 'semua menu'.tr.obs;
 
   // *
   RxList<MenuUI> selectedItems = <MenuUI>[].obs;
@@ -76,7 +76,7 @@ class HomePageController extends GetxController {
   Future<void> fetchUniqueCategories() async {
     final categories = menus.map((menu) => menu.kategori).toSet().toList();
     categories.sort();
-    uniqueCategories.value = ['semua menu', ...categories];
+    uniqueCategories.value = ['semua menu'.tr, ...categories];
     isCategoryLoading.value = false;
   }
 
@@ -92,7 +92,7 @@ class HomePageController extends GetxController {
       final matchKeyword =
           keywordLower.isEmpty || nameLower.contains(keywordLower);
       final matchCategory =
-          selected == 'semua menu' || categoryLower == selected;
+          selected == 'semua menu'.tr || categoryLower == selected;
 
       return matchKeyword && matchCategory;
     }).toList();

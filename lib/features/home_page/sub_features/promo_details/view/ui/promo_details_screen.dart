@@ -55,7 +55,7 @@ class PromoDetailScreen extends StatelessWidget {
           draggableContent: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Nama Promo', style: Get.textTheme.titleMedium),
+              Text('Nama Promo'.tr, style: Get.textTheme.titleMedium),
               10.verticalSpace,
               Text(promo?.nama ?? '',
                   style: TextStyle(

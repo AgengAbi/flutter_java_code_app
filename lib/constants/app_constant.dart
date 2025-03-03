@@ -1,13 +1,13 @@
 class AppConstants {
   /// Latitude of the target location
   // static const double locationLatitude = -7.9422705302492105;
-  // static const double locationLatitude = -7.924998084201822;
-  static const double locationLatitude = -7.946721179194894;
+  static const double locationLatitude = -7.924998084201822;
+  // static const double locationLatitude = -7.946721179194894;
 
   /// Longitude of the target location
   // static const double locationLongitude = 112.62298304965235;
-  // static const double locationLongitude = 112.65309406565733;
-  static const double locationLongitude = 112.61613162402459;
+  static const double locationLongitude = 112.65309406565733;
+  // static const double locationLongitude = 112.61613162402459;
 
   /// Maximum allowed distance from the target location in meters
   static const double maximumDistance = 100.0;

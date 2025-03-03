@@ -18,11 +18,11 @@ class EvaluationController extends GetxController {
   final TextEditingController reviewController = TextEditingController();
   RxBool showSubmittedData = false.obs;
   final improvements = <String>[
-    'Harga',
-    'Rasa',
-    'Penyajian makanan',
-    'Pelayanan',
-    'Fasilitas',
+    'Harga'.tr,
+    'Rasa'.tr,
+    'Penyajian makanan'.tr,
+    'Pelayanan'.tr,
+    'Fasilitas'.tr,
   ];
   RxList<Rating> ratings = <Rating>[].obs;
 
@@ -59,15 +59,15 @@ class EvaluationController extends GetxController {
   String get ratingLabel {
     switch (rating.value) {
       case 1:
-        return 'Buruk';
+        return 'Buruk'.tr;
       case 2:
-        return 'Kurang';
+        return 'Kurang'.tr;
       case 3:
-        return 'Lumayan';
+        return 'Lumayan'.tr;
       case 4:
-        return 'Hampir Sempurna';
+        return 'Hampir Sempurna'.tr;
       case 5:
-        return 'Sempurna';
+        return 'Sempurna'.tr;
       default:
         return ''; // rating=0 (not rated)
     }
@@ -100,7 +100,7 @@ class EvaluationController extends GetxController {
 
     showSubmittedData.value = true;
 
-    Get.snackbar('Berhasil', 'Penilaian Anda telah dikirim!');
+    Get.snackbar('Berhasil'.tr, 'Penilaian Anda telah dikirim!');
 
     rating.value = 0;
     selectedImprovements.clear();

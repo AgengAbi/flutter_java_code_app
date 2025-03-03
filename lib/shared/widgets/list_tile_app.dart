@@ -211,44 +211,44 @@ class ListTileApp extends StatelessWidget {
                         child: TextFormField(
                           controller: controller,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          decoration: const InputDecoration(
-                            hintText: 'Masukkan teks',
-                            border: OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            hintText: 'Masukkan teks'.tr,
+                            border: const OutlineInputBorder(),
                           ),
                           validator: (value) {
                             switch (fieldType) {
                               case FieldType.name:
                                 if (value == null || value.trim().isEmpty) {
-                                  return 'Nama tidak boleh kosong';
+                                  return 'validation.name_empty'.tr;
                                 }
                                 break;
                               case FieldType.date:
                                 if (value == null || value.trim().isEmpty) {
-                                  return 'Tanggal tidak boleh kosong';
+                                  return 'validation.date_empty'.tr;
                                 }
                                 break;
                               case FieldType.phone:
                                 if (value == null || value.trim().isEmpty) {
-                                  return 'Nomor telepon tidak boleh kosong';
+                                  return 'validation.phone_empty'.tr;
                                 }
                                 if (!RegExp(r'^[+\d]+$').hasMatch(value)) {
-                                  return 'Nomor telepon hanya boleh angka dan simbol +';
+                                  return 'validation.phone_invalid'.tr;
                                 }
                                 break;
                               case FieldType.email:
                                 if (value == null || value.trim().isEmpty) {
-                                  return 'Email tidak boleh kosong';
+                                  return 'validation.email_empty'.tr;
                                 }
                                 if (!value.contains('@')) {
-                                  return 'Email harus mengandung @';
+                                  return 'validation.email_invalid'.tr;
                                 }
                                 break;
                               case FieldType.pin:
                                 if (value == null || value.trim().isEmpty) {
-                                  return 'PIN tidak boleh kosong';
+                                  return 'validation.pin_empty'.tr;
                                 }
                                 if (value.trim().length < 5) {
-                                  return 'PIN minimal 5 angka';
+                                  return 'validation.pin_too_short'.tr;
                                 }
                                 break;
                               case FieldType.none:
@@ -348,9 +348,9 @@ class ListTileApp extends StatelessWidget {
                       child: Row(
                         children: (radioItems == null || radioItems!.isEmpty)
                             ? [
-                                const Text(
-                                  'Level tidak tersedia untuk menu ini',
-                                  style: TextStyle(fontSize: 16),
+                                Text(
+                                  'Level tidak tersedia untuk menu ini'.tr,
+                                  style: const TextStyle(fontSize: 16),
                                 )
                               ]
                             : radioItems!.map((levelItem) {
@@ -432,53 +432,53 @@ class ListTileApp extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children:
-                            (checkboxItems == null || checkboxItems!.isEmpty)
-                                ? [
-                                    const Text(
-                                      'Topping tidak tersedia untuk menu ini',
-                                      style: TextStyle(fontSize: 16),
-                                    )
-                                  ]
-                                : checkboxItems!.asMap().entries.map((entry) {
-                                    int index = entry.key;
-                                    Topping toppingItem = entry.value;
-                                    bool isSelected = selectedList[index];
+                        children: (checkboxItems == null ||
+                                checkboxItems!.isEmpty)
+                            ? [
+                                Text(
+                                  'Topping tidak tersedia untuk menu ini'.tr,
+                                  style: const TextStyle(fontSize: 16),
+                                )
+                              ]
+                            : checkboxItems!.asMap().entries.map((entry) {
+                                int index = entry.key;
+                                Topping toppingItem = entry.value;
+                                bool isSelected = selectedList[index];
 
-                                    return SelectableItem(
-                                      item: toppingItem,
-                                      isSelected: isSelected,
-                                      label: toppingItem.keterangan,
-                                      onTap: (selectedItem) {
-                                        setState(() {
-                                          selectedList[index] =
-                                              !selectedList[index];
-                                        });
+                                return SelectableItem(
+                                  item: toppingItem,
+                                  isSelected: isSelected,
+                                  label: toppingItem.keterangan,
+                                  onTap: (selectedItem) {
+                                    setState(() {
+                                      selectedList[index] =
+                                          !selectedList[index];
+                                    });
 
-                                        AppLogger.d(
-                                            'Choice toggled: ${selectedItem.keterangan} now ${selectedList[index]}');
+                                    AppLogger.d(
+                                        'Choice toggled: ${selectedItem.keterangan} now ${selectedList[index]}');
 
-                                        if (menu != null) {
-                                          List<Topping> selectedToppings = [];
-                                          for (int i = 0;
-                                              i < (checkboxItems?.length ?? 0);
-                                              i++) {
-                                            if (selectedList[i]) {
-                                              selectedToppings
-                                                  .add(checkboxItems![i]);
-                                            }
-                                          }
-                                          if (onUpdateTopping != null) {
-                                            onUpdateTopping!(selectedToppings);
-                                          } else {
-                                            HomePageMenuDetailsController.to
-                                                .updateMenuTopping(
-                                                    selectedToppings);
-                                          }
+                                    if (menu != null) {
+                                      List<Topping> selectedToppings = [];
+                                      for (int i = 0;
+                                          i < (checkboxItems?.length ?? 0);
+                                          i++) {
+                                        if (selectedList[i]) {
+                                          selectedToppings
+                                              .add(checkboxItems![i]);
                                         }
-                                      },
-                                    );
-                                  }).toList(),
+                                      }
+                                      if (onUpdateTopping != null) {
+                                        onUpdateTopping!(selectedToppings);
+                                      } else {
+                                        HomePageMenuDetailsController.to
+                                            .updateMenuTopping(
+                                                selectedToppings);
+                                      }
+                                    }
+                                  },
+                                );
+                              }).toList(),
                       ),
                     ),
                   ],
@@ -508,7 +508,19 @@ class ListTileApp extends StatelessWidget {
   }
 
   void _showLanguagePicker(BuildContext context) {
-    String selectedLanguage = LocalStorageService.getLanguage() ?? "Indonesia";
+    String getLanguageFromLocale(Locale locale) {
+      switch (locale.languageCode) {
+        case 'en':
+          return "English";
+        case 'id':
+        default:
+          return "Indonesia";
+      }
+    }
+
+    String selectedLanguage =
+        Get.locale != null ? getLanguageFromLocale(Get.locale!) : "Indonesia";
+
     showModalBottomSheet(
       showDragHandle: true,
       context: context,
@@ -535,9 +547,8 @@ class ListTileApp extends StatelessWidget {
                             setState(() => selectedLanguage = "Indonesia");
                             Get.updateLocale(const Locale('id', 'ID'));
                             LocalStorageService.setLanguage("Indonesia");
-                            if (onSubmitText != null) {
-                              onSubmitText!("Indonesia");
-                            }
+                            // Misalnya, panggil callback jika diperlukan
+                            // if (onSubmitText != null) onSubmitText!("Indonesia");
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -565,9 +576,7 @@ class ListTileApp extends StatelessWidget {
                                   const Icon(Icons.check,
                                       size: 16, color: Colors.white),
                                 ] else ...[
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
+                                  const SizedBox(width: 8),
                                 ],
                               ],
                             ),
@@ -581,7 +590,7 @@ class ListTileApp extends StatelessWidget {
                             setState(() => selectedLanguage = "English");
                             Get.updateLocale(const Locale('en', 'US'));
                             LocalStorageService.setLanguage("English");
-                            if (onSubmitText != null) onSubmitText!("English");
+                            // if (onSubmitText != null) onSubmitText!("English");
                             Navigator.pop(context);
                           },
                           child: Container(
@@ -609,9 +618,7 @@ class ListTileApp extends StatelessWidget {
                                   const Icon(Icons.check,
                                       size: 16, color: Colors.white),
                                 ] else ...[
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
+                                  const SizedBox(width: 8),
                                 ],
                               ],
                             ),

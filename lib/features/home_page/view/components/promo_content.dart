@@ -5,7 +5,7 @@ import 'package:flutter_java_code_app/features/home_page/controllers/home_page_c
 import 'package:flutter_java_code_app/features/home_page/view/components/promo_card.dart';
 import 'package:flutter_java_code_app/shared/widgets/section_header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PromoContent extends StatelessWidget {
@@ -27,8 +27,8 @@ class PromoContent extends StatelessWidget {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.w, vertical: 16.h),
-                  child: const SectionHeader(
-                    title: 'Promo yang Tersedia',
+                  child: SectionHeader(
+                    title: 'Promo yang Tersedia'.tr,
                     icon: SvgConstant.icDiscount,
                   ),
                 ),

@@ -36,6 +36,11 @@ class OrderModel extends HiveObject {
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
+    // Filter menu that have id_menu value
+    final List<dynamic> menuList = json['menu'] as List<dynamic>;
+    final List<dynamic> filteredMenus =
+        menuList.where((menu) => menu['id_menu'] != null).toList();
+
     return OrderModel(
       idOrder: json['id_order'],
       noStruk: json['no_struk'],
@@ -43,7 +48,7 @@ class OrderModel extends HiveObject {
       totalBayar: json['total_bayar'],
       tanggal: json['tanggal'],
       status: json['status'],
-      menu: (json['menu'] as List).map((e) => MenuModel.fromJson(e)).toList(),
+      menu: filteredMenus.map((e) => MenuModel.fromJson(e)).toList(),
     );
   }
 }
@@ -97,7 +102,7 @@ class MenuModel extends HiveObject {
       nama: json['nama'],
       foto: json['foto'] ??
           'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
-      jumlah: json['jumlah'],
+      jumlah: json['jumlah'] ?? 1,
       harga: json['harga'].toString(),
       total: json['total'],
       catatan: json['catatan'],

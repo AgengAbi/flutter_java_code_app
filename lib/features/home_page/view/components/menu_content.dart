@@ -4,6 +4,7 @@ import 'package:flutter_java_code_app/features/home_page/controllers/home_page_c
 import 'package:flutter_java_code_app/features/home_page/view/components/menu_card.dart';
 import 'package:flutter_java_code_app/features/home_page/view/components/menu_chip.dart';
 import 'package:flutter_java_code_app/shared/widgets/section_header.dart';
+import 'package:flutter_java_code_app/utils/functions/app_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -32,10 +33,11 @@ class MenuContentState extends State<MenuContent> {
                 children:
                     HomePageController.to.uniqueCategories.map((category) {
                   String sectionTitle = category.capitalize!;
+                  AppLogger.d('Section title: $sectionTitle');
                   return Padding(
                     padding: EdgeInsets.only(right: 8.w),
                     child: MenuChip(
-                      text: sectionTitle,
+                      text: sectionTitle.tr,
                       icon: category == 'makanan'
                           ? SvgConstant.icFood
                           : category == 'minuman'
@@ -65,6 +67,7 @@ class MenuContentState extends State<MenuContent> {
                 .toSet()
                 .toList();
             uniqueCats.sort();
+            AppLogger.d('Unique categories: $uniqueCats');
             return uniqueCats.isEmpty
                 ? _buildShimmerForMenuCards()
                 : Column(
@@ -79,7 +82,7 @@ class MenuContentState extends State<MenuContent> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SectionHeader(
-                            title: sectionTitle,
+                            title: sectionTitle.tr,
                             icon: cat == 'makanan'
                                 ? SvgConstant.icFood
                                 : cat == 'minuman'

@@ -19,39 +19,8 @@ class OnGoingOrderTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (OrderController.to.isLoading.value ||
-          OrderController.to.onGoingOrders.isEmpty) {
-        return Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(ImageConstant.bgPattern),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(SvgConstant.icNullOrders),
-                SizedBox(height: 10.h),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 350.w),
-                  child: Text(
-                    "Sudah Pesan? \nLacak pesananmu di sini.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 21.sp,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+      if (OrderController.to.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
       }
 
       return Column(
@@ -84,24 +53,61 @@ class OnGoingOrderTabView extends StatelessWidget {
           Expanded(
             child: RefreshIndicator(
               onRefresh: () async => OrderController.to.fetchOrders(),
-              child: ListView.separated(
-                padding: EdgeInsets.all(25.r),
-                itemBuilder: (context, index) => OrderItemCard(
-                  order: OrderController.to.filteredOnGoingOrder[index],
-                  onTap: () {
-                    Get.toNamed(
-                      Routes.orderOrderDetailsRoute,
-                      arguments: {
-                        'orderId': OrderController
-                            .to.filteredOnGoingOrder[index].idOrder,
-                      },
-                    );
-                  },
-                  onOrderAgain: () {},
-                ),
-                separatorBuilder: (context, index) => 16.verticalSpace,
-                itemCount: OrderController.to.filteredOnGoingOrder.length,
-              ),
+              child: OrderController.to.filteredOnGoingOrder.isEmpty
+                  ? ListView(
+                      padding: EdgeInsets.all(25.r),
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(ImageConstant.bgPattern),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(SvgConstant.icNullOrders),
+                                SizedBox(height: 10.h),
+                                ConstrainedBox(
+                                  constraints: BoxConstraints(maxWidth: 350.w),
+                                  child: Text(
+                                    "Sudah Pesan? \nLacak pesananmu di sini.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 21.sp,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  : ListView.separated(
+                      padding: EdgeInsets.all(25.r),
+                      itemBuilder: (context, index) => OrderItemCard(
+                        order: OrderController.to.filteredOnGoingOrder[index],
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.orderOrderDetailsRoute,
+                            arguments: {
+                              'orderId': OrderController
+                                  .to.filteredOnGoingOrder[index].idOrder,
+                            },
+                          );
+                        },
+                        onOrderAgain: () {},
+                      ),
+                      separatorBuilder: (context, index) => 16.verticalSpace,
+                      itemCount: OrderController.to.filteredOnGoingOrder.length,
+                    ),
             ),
           ),
         ],

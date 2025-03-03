@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: UniversalAppBar(
-        title: 'Profile'.tr,
+        title: 'Profil'.tr,
         enableBackButton: false,
       ),
       body: Container(
@@ -50,7 +50,6 @@ class ProfileScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     Obx(() {
-                      // Jika sudah ada file gambar dari pickImage, gunakan Image.file
                       final imageFile = ProfileController.to.imageFile;
                       if (imageFile != null) {
                         return Image.file(
@@ -60,7 +59,6 @@ class ProfileScreen extends StatelessWidget {
                           fit: BoxFit.cover,
                         );
                       }
-                      // Jika belum ada file, gunakan foto dari URL (dari API)
                       final photoUrl =
                           ProfileController.to.user.value?.foto ?? '';
                       if (photoUrl.isNotEmpty) {
@@ -79,7 +77,6 @@ class ProfileScreen extends StatelessWidget {
                           },
                         );
                       }
-                      // Jika tidak ada keduanya, tampilkan asset default
                       return Image.asset(
                         ImageConstant.bgProfile,
                         width: 170.r,
@@ -97,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                             width: double.infinity,
                             padding: EdgeInsets.only(top: 10.r, bottom: 15.r),
                             child: Text(
-                              "Change".tr,
+                              "Ubah".tr,
                               style: Get.textTheme.labelMedium!
                                   .copyWith(color: Colors.white),
                               textAlign: TextAlign.center,
@@ -119,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
                 SvgPicture.asset(SvgConstant.icKTP),
                 7.horizontalSpaceRadius,
                 Text(
-                  'Verify your ID card now!'.tr,
+                  'Verifikasi Kartu Identitas Anda Sekarang!'.tr,
                   style: Get.textTheme.labelMedium!
                       .copyWith(color: ColorStyle.secondary),
                 )
@@ -131,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 20.r),
               child: Text(
-                'Account info'.tr,
+                'Informasi Akun'.tr,
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
@@ -170,7 +167,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const Divider(),
                       ListTileApp(
-                        title: 'No. Telepon'.tr,
+                        title: 'No Telepon'.tr,
                         subtitle:
                             ProfileController.to.user.value?.telepon ?? '',
                         textFormArgument:
@@ -195,7 +192,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const Divider(),
                       ListTileApp(
-                        title: 'Ubah PIN'.tr,
+                        title: 'Ganti PIN'.tr,
                         subtitle: ProfileController.to.user.value?.pin ?? '',
                         textFormArgument: ProfileController.to.user.value?.pin,
                         bottomSheetFormType: BottomSheetFormType.textForm,
@@ -207,8 +204,9 @@ class ProfileScreen extends StatelessWidget {
                       const Divider(),
                       ListTileApp(
                         title: 'Ganti Bahasa'.tr,
-                        subtitle:
-                            LocalStorageService.getLanguage() ?? "Indonesia",
+                        subtitle: Get.locale != null
+                            ? Get.locale!.languageCode.toUpperCase().tr
+                            : "ID".tr,
                         bottomSheetFormType: BottomSheetFormType.language,
                         onSubmitText: (newLanguage) {
                           ProfileController.to.updateLanguage(newLanguage);
@@ -236,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
                             SvgPicture.asset(SvgConstant.icReview),
                             9.horizontalSpaceRadius,
                             Text(
-                              'Penilaian',
+                              'Penilaian'.tr,
                               style: Get.textTheme.titleSmall,
                             )
                           ],
@@ -270,7 +268,7 @@ class ProfileScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 20.r),
               child: Text(
-                'Other info'.tr,
+                'Informasi Lainnya'.tr,
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
@@ -287,12 +285,12 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Obx(() => ListTileApp(
-                      title: 'Device Info',
+                      title: 'Informasi Perangkat'.tr,
                       titleBold: true,
                       subtitle: ProfileController.to.deviceModel.value)),
                   const Divider(),
                   Obx(() => ListTileApp(
-                      title: 'Device Version',
+                      title: 'Versi Perangkat'.tr,
                       titleBold: true,
                       subtitle: ProfileController.to.deviceVersion.value))
                 ],
@@ -305,9 +303,9 @@ class ProfileScreen extends StatelessWidget {
                   LocalStorageService.deleteAll();
                   Get.offAllNamed(Routes.splashRoute);
                 },
-                child: const Text(
-                  'Log Out',
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  'Keluar'.tr,
+                  style: const TextStyle(color: Colors.white),
                 ))
           ],
         ),

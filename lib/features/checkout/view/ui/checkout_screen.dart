@@ -35,8 +35,8 @@ class CheckoutScreen extends StatelessWidget {
             child: Column(
               children: [
                 if (CheckoutController.to.foodItems.isNotEmpty) ...[
-                  const SectionHeader(
-                    title: 'Makanan',
+                  SectionHeader(
+                    title: 'Makanan'.tr,
                     icon: SvgConstant.icFood,
                   ),
                   12.verticalSpace,
@@ -57,8 +57,8 @@ class CheckoutScreen extends StatelessWidget {
                 ],
                 12.verticalSpace,
                 if (CheckoutController.to.drinkItems.isNotEmpty) ...[
-                  const SectionHeader(
-                    title: 'Minuman',
+                  SectionHeader(
+                    title: 'Minuman'.tr,
                     icon: SvgConstant.icDrink,
                   ),
                   12.verticalSpace,
@@ -79,8 +79,8 @@ class CheckoutScreen extends StatelessWidget {
                 ],
                 12.verticalSpace,
                 if (CheckoutController.to.snackItems.isNotEmpty) ...[
-                  const SectionHeader(
-                    title: 'Snack',
+                  SectionHeader(
+                    title: 'Cemilan'.tr,
                     icon: SvgConstant.icFood,
                   ),
                   12.verticalSpace,
@@ -123,7 +123,7 @@ class CheckoutScreen extends StatelessWidget {
                     ListTileApp(
                       title: RichText(
                         text: TextSpan(
-                          text: 'Total Pensanan ',
+                          text: 'Total Pesanan '.tr,
                           style: GoogleTextStyle.fw600.copyWith(
                             fontSize: 18.sp,
                             color: Colors.black,
@@ -146,14 +146,14 @@ class CheckoutScreen extends StatelessWidget {
                     const Divider(),
                     ListTileApp(
                       bottomSheetFormType: BottomSheetFormType.none,
-                      title: 'Diskon',
+                      title: 'Diskon'.tr,
                       titleBold: true,
                       subtitle: 'Rp ${CheckoutController.to.discountPrice}',
                       subtitleColor: ColorStyle.danger,
                       leading: SvgConstant.icDiscount_1,
                       onTapCustom: () {
                         Get.defaultDialog(
-                          title: 'Info Diskon',
+                          title: 'Info Diskon'.tr,
                           titleStyle: const TextStyle(
                             color: ColorStyle.primary,
                             fontWeight: FontWeight.bold,
@@ -218,13 +218,13 @@ class CheckoutScreen extends StatelessWidget {
                     const Divider(),
                     ListTileApp(
                       leading: SvgConstant.icVoucher,
-                      title: 'Voucher',
+                      title: 'Voucher'.tr,
                       titleBold: true,
                       subtitle: CheckoutVoucherController
                                   .selectedVoucherId.value !=
                               null
                           ? 'Rp ${CheckoutVoucherController.to.selectedVoucherNominal}'
-                          : 'Pilih Voucher',
+                          : 'Pilih Voucher'.tr,
                       onTapCustom: () {
                         Get.toNamed(Routes.checkoutVoucherRoute);
                       },
@@ -232,7 +232,7 @@ class CheckoutScreen extends StatelessWidget {
                     const Divider(),
                     ListTileApp(
                       leading: SvgConstant.icPayment,
-                      title: 'Pembayaran',
+                      title: 'Pembayaran'.tr,
                       titleBold: true,
                       subtitle: 'Pay Later',
                     ),

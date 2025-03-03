@@ -129,7 +129,7 @@ class MenuCard extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   menu.note == ''
-                                      ? 'Tambahakan Catatan'
+                                      ? 'Tambahkan Catatan'.tr
                                       : menu.note!,
                                   maxLines: 1,
                                   style: GoogleTextStyle.fw400.copyWith(

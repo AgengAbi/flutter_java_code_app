@@ -6,6 +6,7 @@ import 'package:flutter_java_code_app/configs/themes/app_theme.dart';
 import 'package:flutter_java_code_app/firebase_options.dart';
 import 'package:flutter_java_code_app/shared/bindings/global_bindings.dart';
 import 'package:flutter_java_code_app/utils/services/hive_service.dart';
+import 'package:flutter_java_code_app/utils/services/translation_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -19,6 +20,9 @@ void main() async {
   // debugPaintBaselinesEnabled = true;
   // debugPaintPointersEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Translation ini
+  await AppTranslation.loadTranslations();
 
   // Localstorage init
   await Hive.initFlutter();
@@ -54,6 +58,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'Venturo Core',
           debugShowCheckedModeBanner: false,
+          translations: AppTranslation(),
           locale: const Locale('id'),
           fallbackLocale: const Locale('id'),
           supportedLocales: const [

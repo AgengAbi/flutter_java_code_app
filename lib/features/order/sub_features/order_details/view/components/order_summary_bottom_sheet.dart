@@ -77,7 +77,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             ListTileApp(
               title: RichText(
                 text: TextSpan(
-                  text: 'Total Pesanan ',
+                  text: 'Total pesanan '.tr,
                   style: GoogleTextStyle.fw600.copyWith(
                     fontSize: 18.sp,
                     color: Colors.black,
@@ -98,7 +98,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             const Divider(),
             ListTileApp(
               leading: SvgConstant.icVoucher,
-              title: 'Voucher',
+              title: 'Voucher'.tr,
               titleBold: true,
               subtitle: 'Rp. $voucher',
               subtitleColor: Colors.red,
@@ -106,13 +106,13 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             const Divider(),
             ListTileApp(
               leading: SvgConstant.icPayment,
-              title: 'Pembayaran',
+              title: 'Pembayaran'.tr,
               titleBold: true,
               subtitle: 'Pay Later',
             ),
             const Divider(),
             ListTileApp(
-              title: 'Total Pembayaran',
+              title: 'Total pembayaran'.tr,
               titleBold: true,
               subtitle: 'Rp. $totalPayment',
               subtitleColor: ColorStyle.info,
@@ -121,7 +121,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
             const Divider(),
             16.verticalSpace,
             Text(
-              'Pesanan kamu sedang disiapkan',
+              'Pesanan kamu sedang disiapkan'.tr,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
@@ -133,7 +133,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
                 // Step 1
                 buildStep(
                   isActive: isStep1Active,
-                  title: 'Pesanan\nditerima',
+                  title: 'Pesanan\nditerima'.tr,
                 ),
                 8.horizontalSpace,
                 Expanded(
@@ -146,7 +146,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
                 // Step 2
                 buildStep(
                   isActive: isStep2Active,
-                  title: 'Silahkan\ndiambil',
+                  title: 'Silahkan\ndiambil'.tr,
                 ),
                 8.horizontalSpace,
                 Expanded(
@@ -159,7 +159,7 @@ class OrderSummaryBottomSheet extends StatelessWidget {
                 // Step 3
                 buildStep(
                   isActive: isStep3Active,
-                  title: 'Pesanan\nselesai',
+                  title: 'Pesanan\nselesai'.tr,
                 ),
               ],
             ),

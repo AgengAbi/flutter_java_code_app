@@ -104,15 +104,15 @@ class MenuDetailsScreen extends StatelessWidget {
                   leading: SvgConstant.icPrice,
                   subtitleBold: true,
                   subtitleColor: ColorStyle.info,
-                  title: 'Harga',
+                  title: 'Harga'.tr,
                   subtitle: menu.harga.toString(),
                 ),
                 const Divider(),
                 ListTileApp(
                   leading: SvgConstant.icLevel,
                   menu: menu,
-                  title: 'Level',
-                  titleBottomSheet: 'Pilih Level',
+                  title: 'Level'.tr,
+                  titleBottomSheet: 'Pilih Level'.tr,
                   subtitle: menu.levelSelected?.keterangan ?? '',
                   bottomSheetFormType: BottomSheetFormType.radio,
                   radioItems: menu.level,
@@ -121,8 +121,8 @@ class MenuDetailsScreen extends StatelessWidget {
                 ListTileApp(
                   leading: SvgConstant.icTopping,
                   menu: menu,
-                  title: 'Topping',
-                  titleBottomSheet: 'Pilih Topping',
+                  title: 'Topping'.tr,
+                  titleBottomSheet: 'Pilih Topping'.tr,
                   subtitle: menu.toppingSelected
                           ?.map((t) => t.keterangan)
                           .join(', ') ??
@@ -134,8 +134,8 @@ class MenuDetailsScreen extends StatelessWidget {
                 ListTileApp(
                   leading: SvgConstant.icNote,
                   menu: menu,
-                  title: 'Catatan',
-                  titleBottomSheet: 'Buat Catatan',
+                  title: 'Catatan'.tr,
+                  titleBottomSheet: 'Buat Catatan'.tr,
                   subtitle: menu.note ?? '',
                   bottomSheetFormType: BottomSheetFormType.textForm,
                   textFormArgument: menu.note ?? '',
@@ -151,12 +151,14 @@ class MenuDetailsScreen extends StatelessWidget {
                       onPressed: menu.quantity > 0
                           ? () {
                               HomePageController.to.addMenuToOrder(menu);
-                              Get.snackbar("Pesanan",
-                                  "${menu.nama} berhasil ditambahkan ke pesanan!");
+                              Get.snackbar(
+                                  "Pesanan".tr,
+                                  "${menu.nama} berhasil ditambahkan ke pesanan!"
+                                      .tr);
                             }
                           : null,
                       child: Text(
-                        "Tambahkan Ke Pesanan",
+                        "Tambahkan Ke Pesanan".tr,
                         style: GoogleTextStyle.fw800.copyWith(
                           fontSize: 14.sp,
                           color: ColorStyle.white,

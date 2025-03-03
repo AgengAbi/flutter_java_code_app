@@ -49,18 +49,18 @@ class MainPageScreen extends StatelessWidget {
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey,
               onTap: (index) => MainPageController.to.changeTab(index),
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Beranda',
+                  icon: const Icon(Icons.home),
+                  label: 'Beranda'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.room_service),
-                  label: 'Pesenan',
+                  icon: const Icon(Icons.room_service),
+                  label: 'Pesanan'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle_outlined),
-                  label: 'Profile',
+                  icon: const Icon(Icons.account_circle_outlined),
+                  label: 'Profil'.tr,
                 ),
               ],
             ),
