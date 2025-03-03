@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_java_code_app/configs/themes/app_theme.dart';
 import 'package:flutter_java_code_app/constants/cores/assets/svg_constant.dart';
 import 'package:flutter_java_code_app/features/order/sub_features/order_details/controllers/order_order_details_controller.dart';
 import 'package:flutter_java_code_app/shared/styles/color_style.dart';
@@ -119,7 +120,27 @@ class OrderSummaryBottomSheet extends StatelessWidget {
               subtitleBold: true,
             ),
             const Divider(),
-            16.verticalSpace,
+            8.verticalSpace,
+            if (status < 2)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      OrderDetailsController.to.cancelOrder();
+                    },
+                    style: ElevatedButtonStyles.secondary,
+                    child: Text('Batalkan'.tr),
+                  ),
+                  8.horizontalSpace,
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButtonStyles.primary,
+                    child: Text('Terima Pesanan'.tr),
+                  ),
+                ],
+              ),
+            8.verticalSpace,
             Text(
               'Pesanan kamu sedang disiapkan'.tr,
               style: TextStyle(

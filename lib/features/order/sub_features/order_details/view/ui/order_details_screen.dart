@@ -90,7 +90,7 @@ class OrderDetailsScreen extends StatelessWidget {
                         .toList(),
                   ),
                 ],
-                56.verticalSpace,
+                450.verticalSpace,
               ],
             ),
           );

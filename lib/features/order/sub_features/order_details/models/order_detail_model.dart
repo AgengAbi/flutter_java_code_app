@@ -52,6 +52,7 @@ class OrderDetailModel extends HiveObject {
   });
 
   factory OrderDetailModel.fromJson(Map<String, dynamic> json) {
+    // Ambil data order dan detail dari JSON
     final orderData = json['order'] as Map<String, dynamic>;
     final detailList = json['detail'] as List<dynamic>;
 
@@ -124,7 +125,10 @@ class OrderDetail extends HiveObject {
           ? (json['topping'] as List).join(', ')
           : json['topping'] as String,
       nama: json['nama'] as String,
-      foto: json['foto'] as String,
+      // Jika foto null atau string kosong, gunakan URL default
+      foto: json['foto'] == null || json['foto'].toString().isEmpty
+          ? "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png"
+          : json['foto'] as String,
       jumlah: json['jumlah'] is int
           ? json['jumlah'] as int
           : int.tryParse(json['jumlah'].toString()) ?? 0,

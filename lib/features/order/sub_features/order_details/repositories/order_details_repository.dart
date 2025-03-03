@@ -39,4 +39,35 @@ class OrderDetailsRepository {
       }
     }
   }
+
+  static Future<Either<Failure, void>> cancelOrder(int orderId) async {
+    try {
+      final dio = DioService.dioCall(token: LocalStorageService.getAuthToken());
+      final response = await dio.post(
+        '${OrderApiConstant.cancelOrder}/$orderId',
+        data: {
+          'id_order': orderId,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(null);
+      } else {
+        return Left(ServerFailure(
+          message: 'Error canceling order',
+          statusCode: response.statusCode,
+        ));
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return Left(ServerFailure(
+          message: e.response!.data['errors']?.join(", ") ??
+              "Terjadi kesalahan server",
+          statusCode: e.response!.statusCode ?? 500,
+        ));
+      } else {
+        return Left(NetworkFailure());
+      }
+    }
+  }
 }

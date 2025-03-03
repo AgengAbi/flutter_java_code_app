@@ -95,7 +95,7 @@ class ListTileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      visualDensity: VisualDensity.compact,
+      visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
       contentPadding: EdgeInsets.zero,
       leading: _buildLeadingWidget(),
       title: Row(

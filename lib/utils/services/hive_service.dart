@@ -41,8 +41,16 @@ class LocalStorageService extends GetxService {
     userAuthBox = await Hive.openBox<UserAuth>('userAuthBox');
     userBox = await Hive.openBox<User>('userBox');
     authToken = await Hive.openBox<String>('authToken');
-    languageBox = await Hive.openBox<String>('languageBox');
+    if (!Hive.isBoxOpen('languageBox')) {
+      languageBox = await Hive.openBox<String>('languageBox');
+    } else {
+      languageBox = Hive.box<String>('languageBox');
+    }
     ratingBox = await Hive.openBox<Rating>('ratingBox');
+
+    if (languageBox.get('language') == null) {
+      await languageBox.put('language', "Indonesia");
+    }
   }
 
   static Future<void> deleteAll() async {
@@ -86,40 +94,13 @@ class LocalStorageService extends GetxService {
     await userBox.delete('user');
   }
 
+  // Language methods
   static Future<void> setLanguage(String language) async {
     await languageBox.put('language', language);
   }
 
-  static String? getLanguage() {
-    return languageBox.get('language');
+  static String getLanguage() {
+    // Mengembalikan bahasa yang tersimpan atau default "Indonesia"
+    return languageBox.get('language') ?? "Indonesia";
   }
-
-  // // * Menu
-  // static Future<void> setMenus(List<Menu> menus) async {
-  //   await menuBox.clear();
-  //   for (var menu in menus) {
-  //     await menuBox.put(menu.idMenu, menu);
-  //   }
-  // }
-
-  // static List<Menu> getMenus() {
-  //   return menuBox.values.toList();
-  // }
-
-  // static Future<void> deleteMenu(String idMenu) async {
-  //   await menuBox.delete(idMenu);
-  // }
-
-  // static Future<void> clearMenus() async {
-  //   await menuBox.clear();
-  // }
-
-  // // * Checkout
-  // static Future<void> saveOrder(Order order) async {
-  //   await orderBox.add(order);
-  // }
-
-  // static List<Order> getAllOrders() {
-  //   return orderBox.values.toList();
-  // }
 }

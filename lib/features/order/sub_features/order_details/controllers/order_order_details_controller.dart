@@ -112,4 +112,17 @@ class OrderDetailsController extends GetxController {
       detail: filteredDetail,
     );
   }
+
+  Future<void> cancelOrder() async {
+    final result = await OrderDetailsRepository.cancelOrder(orderId.value);
+    result.fold(
+      (failure) {
+        AppLogger.e(failure.message);
+        Get.snackbar("Error", failure.message);
+      },
+      (order) {
+        Get.snackbar("Berhasil".tr, "Pesanan dibatalkan");
+      },
+    );
+  }
 }

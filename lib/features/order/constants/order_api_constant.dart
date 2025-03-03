@@ -4,4 +4,5 @@ class OrderApiConstant {
   static String baseUrl = GlobalController.to.baseUrl;
   static String getOrders = '${baseUrl}order/user';
   static String getOrderDetails = '${baseUrl}order/detail';
+  static String cancelOrder = '${baseUrl}order/batal';
 }

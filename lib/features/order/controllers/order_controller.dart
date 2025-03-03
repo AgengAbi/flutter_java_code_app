@@ -51,12 +51,12 @@ class OrderController extends GetxController {
       .obs;
 
   Rx<DateTimeRange> selectedDateRangeOnGoing = DateTimeRange(
-    start: DateTime.now().subtract(const Duration(days: 30)),
+    start: DateTime.now().subtract(const Duration(days: 2000)),
     end: DateTime.now(),
   ).obs;
 
   Rx<DateTimeRange> selectedDateRangeOnHistory = DateTimeRange(
-    start: DateTime.now().subtract(const Duration(days: 30)),
+    start: DateTime.now().subtract(const Duration(days: 2000)),
     end: DateTime.now(),
   ).obs;
 
@@ -87,9 +87,9 @@ class OrderController extends GetxController {
   List<OrderModel> get filteredHistoryOrder {
     final historyOrderList = historyOrders.toList();
 
-    if (selectedCategoryOnHistory.value == 'canceled') {
+    if (selectedCategoryOnHistory.value == 'completed') {
       historyOrderList.removeWhere((order) => order.status != 3);
-    } else if (selectedCategoryOnHistory.value == 'completed') {
+    } else if (selectedCategoryOnHistory.value == 'canceled') {
       historyOrderList.removeWhere((order) => order.status != 4);
     }
 

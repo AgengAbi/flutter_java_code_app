@@ -26,7 +26,7 @@ void main() async {
 
   // Localstorage init
   await Hive.initFlutter();
-  LocalStorageService.initHive();
+  await LocalStorageService.initHive();
 
   /// Firebase init
   await Firebase.initializeApp(
@@ -59,7 +59,9 @@ class MyApp extends StatelessWidget {
           title: 'Venturo Core',
           debugShowCheckedModeBanner: false,
           translations: AppTranslation(),
-          locale: const Locale('id'),
+          locale: LocalStorageService.getLanguage() == "English"
+              ? const Locale('en', 'US')
+              : const Locale('id', 'ID'),
           fallbackLocale: const Locale('id'),
           supportedLocales: const [
             Locale('en', 'US'),

@@ -81,7 +81,7 @@ class OrderHistoryTabView extends StatelessWidget {
                                       constraints:
                                           BoxConstraints(maxWidth: 350.w),
                                       child: Text(
-                                        "Mulai buat pesanan.\nMakanan yang kamu pesan akan muncul di sini agar kami bisa menemukan favoritmu lagi!",
+                                        "ordertab.history".tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 21.sp,

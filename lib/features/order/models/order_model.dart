@@ -97,9 +97,9 @@ class MenuModel extends HiveObject {
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     return MenuModel(
       idMenu: json['id_menu'],
-      kategori: json['kategori'],
+      kategori: json['kategori'] ?? '',
       topping: json['topping'],
-      nama: json['nama'],
+      nama: json['nama'] ?? '',
       foto: json['foto'] ??
           'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
       jumlah: json['jumlah'] ?? 1,

@@ -37,23 +37,23 @@ class OrderItemCard extends StatelessWidget {
         break;
       case 1:
         statusText = "Silahkan diambil".tr;
-        statusIcon = Icons.check_circle;
-        statusColor = Colors.orange;
+        statusIcon = Icons.check;
+        statusColor = Colors.blueAccent;
         break;
       case 2:
         statusText = "Pesanan selesai".tr;
-        statusIcon = Icons.cancel;
+        statusIcon = Icons.check_circle;
         statusColor = Colors.green;
         break;
       case 3:
-        statusText = "Dibatalkan".tr;
-        statusIcon = Icons.cancel_outlined;
-        statusColor = Colors.red;
-        break;
-      case 4:
         statusText = "Selesai".tr;
         statusIcon = Icons.check_circle;
         statusColor = Colors.green;
+        break;
+      case 4:
+        statusText = "Dibatalkan".tr;
+        statusIcon = Icons.cancel_outlined;
+        statusColor = Colors.red;
         break;
       default:
         statusText = "Tidak dapat ditracking".tr;

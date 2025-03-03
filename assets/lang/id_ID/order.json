@@ -22,5 +22,11 @@
     "Beri penilaian": "Beri penilaian",
     "Pesan lagi": "Pesan lagi",
     "Pesan sekarang": "Pesan\nsekarang",
-    "Total harga": "Total harga"
+    "Total harga": "Total harga",
+    "ordertab.ongoing": "Sudah Pesan? \nLacak pesananmu di sini.",
+    "ordertab.history": "Mulai buat pesanan.\nMakanan yang kamu pesan akan muncul di sini agar kami bisa menemukan favoritmu lagi!",
+    "Batalkan": "Batalkan",
+    "Terima Pesanan": "Terima Pesanan",
+    "Pesanan dibatalkan": "Pesanan dibatalkan",
+    "Berhasil": "Berhasil"
 }

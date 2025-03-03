@@ -22,5 +22,11 @@
     "Beri penilaian": "Give a rating",
     "Pesan lagi": "Order again",
     "Pesan sekarang": "Order now",
-    "Total harga": "Total price"
+    "Total harga": "Total price",
+    "ordertab.ongoing": "Already ordered? \nCheck out your order here.",
+    "ordertab.history": "Start making an order.\nThe foods you order will appear here so that we can find your favorites again!",
+    "Batalkan": "Cancelled",
+    "Terima Pesanan": "Receive Order",
+    "Pesanan dibatalkan": "Order cancelled",
+    "Berhasil": "Successful"
 }

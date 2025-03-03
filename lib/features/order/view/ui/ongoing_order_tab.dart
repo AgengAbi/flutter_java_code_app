@@ -76,7 +76,7 @@ class OnGoingOrderTabView extends StatelessWidget {
                                 ConstrainedBox(
                                   constraints: BoxConstraints(maxWidth: 350.w),
                                   child: Text(
-                                    "Sudah Pesan? \nLacak pesananmu di sini.",
+                                    "ordertab.ongoing".tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 21.sp,
