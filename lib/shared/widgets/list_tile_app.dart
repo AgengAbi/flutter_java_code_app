@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_java_code_app/constants/cores/assets/svg_constant.dart';
+import 'package:flutter_java_code_app/features/checkout/controllers/checkout_controller.dart';
 import 'package:flutter_java_code_app/features/home_page/models/level.dart';
 import 'package:flutter_java_code_app/features/home_page/models/menu_ui.dart';
 import 'package:flutter_java_code_app/features/home_page/models/topping.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_java_code_app/utils/services/hive_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 enum BottomSheetFormType {
   none,
@@ -186,115 +188,135 @@ class ListTileApp extends StatelessWidget {
       isScrollControlled: true,
       context: context,
       builder: (context) {
-        return SingleChildScrollView(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: formKeyModal,
-              child: Wrap(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      titleBottomSheet ??
-                          (title is Text ? (title as Text).data! : ''),
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: controller,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          decoration: InputDecoration(
-                            hintText: 'Masukkan teks'.tr,
-                            border: const OutlineInputBorder(),
-                          ),
-                          validator: (value) {
-                            switch (fieldType) {
-                              case FieldType.name:
-                                if (value == null || value.trim().isEmpty) {
-                                  return 'validation.name_empty'.tr;
-                                }
-                                break;
-                              case FieldType.date:
-                                if (value == null || value.trim().isEmpty) {
-                                  return 'validation.date_empty'.tr;
-                                }
-                                break;
-                              case FieldType.phone:
-                                if (value == null || value.trim().isEmpty) {
-                                  return 'validation.phone_empty'.tr;
-                                }
-                                if (!RegExp(r'^[+\d]+$').hasMatch(value)) {
-                                  return 'validation.phone_invalid'.tr;
-                                }
-                                break;
-                              case FieldType.email:
-                                if (value == null || value.trim().isEmpty) {
-                                  return 'validation.email_empty'.tr;
-                                }
-                                if (!value.contains('@')) {
-                                  return 'validation.email_invalid'.tr;
-                                }
-                                break;
-                              case FieldType.pin:
-                                if (value == null || value.trim().isEmpty) {
-                                  return 'validation.pin_empty'.tr;
-                                }
-                                if (value.trim().length < 5) {
-                                  return 'validation.pin_too_short'.tr;
-                                }
-                                break;
-                              case FieldType.none:
-                              default:
-                                break;
-                            }
-                            return null;
-                          },
-                        ),
+        // ignore: deprecated_member_use
+        return WillPopScope(
+          onWillPop: () async {
+            FocusScope.of(context).unfocus();
+            await Future.delayed(const Duration(milliseconds: 100));
+            return true;
+          },
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: formKeyModal,
+                child: Wrap(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        titleBottomSheet ??
+                            (title is Text ? (title as Text).data! : ''),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      Container(
-                        height: 32.r,
-                        width: 32.r,
-                        decoration: BoxDecoration(
-                            color: ColorStyle.info,
-                            borderRadius: BorderRadius.circular(30.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                blurRadius: 10,
-                                spreadRadius: -1,
-                              )
-                            ]),
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          color: ColorStyle.white,
-                          icon: const Icon(Icons.check),
-                          onPressed: () {
-                            if (formKeyModal.currentState!.validate()) {
-                              final newText = controller.text.trim();
-                              AppLogger.d('TextForm submitted: $newText');
-                              if (onSubmitText != null) {
-                                onSubmitText!(newText);
-                              } else if (onUpdateNote != null) {
-                                onUpdateNote!(newText);
-                              } else {
-                                // Default behavior jika callback tidak disediakan
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: controller,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            decoration: InputDecoration(
+                              hintText: 'Masukkan teks'.tr,
+                              border: const OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              switch (fieldType) {
+                                case FieldType.name:
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'validation.name_empty'.tr;
+                                  }
+                                  break;
+                                case FieldType.date:
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'validation.date_empty'.tr;
+                                  }
+                                  break;
+                                case FieldType.phone:
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'validation.phone_empty'.tr;
+                                  }
+                                  if (!RegExp(r'^[+\d]+$').hasMatch(value)) {
+                                    return 'validation.phone_invalid'.tr;
+                                  }
+                                  break;
+                                case FieldType.email:
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'validation.email_empty'.tr;
+                                  }
+                                  if (!value.contains('@')) {
+                                    return 'validation.email_invalid'.tr;
+                                  }
+                                  break;
+                                case FieldType.pin:
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'validation.pin_empty'.tr;
+                                  }
+                                  if (value.trim().length < 5) {
+                                    return 'validation.pin_too_short'.tr;
+                                  }
+                                  break;
+                                case FieldType.none:
+                                  break;
                               }
-                              Navigator.pop(context);
-                            }
-                          },
+                              return null;
+                            },
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                ],
+                        Container(
+                          height: 32.r,
+                          width: 32.r,
+                          decoration: BoxDecoration(
+                              color: ColorStyle.info,
+                              borderRadius: BorderRadius.circular(30.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.5),
+                                  blurRadius: 10,
+                                  spreadRadius: -1,
+                                )
+                              ]),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            color: ColorStyle.white,
+                            icon: const Icon(Icons.check),
+                            onPressed: () {
+                              if (formKeyModal.currentState!.validate()) {
+                                final newText = controller.text.trim();
+                                AppLogger.d('TextForm submitted: $newText');
+                                if (onSubmitText != null) {
+                                  onSubmitText!(newText);
+                                  HomePageMenuDetailsController
+                                      .to.selectedMenuDetail
+                                      .refresh();
+                                  if (CheckoutController
+                                      .to.orderList.isNotEmpty) {
+                                    CheckoutController.to.orderList.refresh();
+                                  }
+                                } else if (onUpdateNote != null) {
+                                  onUpdateNote!(newText);
+                                  HomePageMenuDetailsController
+                                      .to.selectedMenuDetail
+                                      .refresh();
+                                  if (CheckoutController
+                                      .to.orderList.isNotEmpty) {
+                                    CheckoutController.to.orderList.refresh();
+                                  }
+                                } else {}
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -369,7 +391,6 @@ class ListTileApp extends StatelessWidget {
                                     AppLogger.d(
                                         'Choice selected: ${selectedItem.keterangan}');
                                     if (menu != null) {
-                                      // Use callback if provided, otherwise use HomePageMenuDetailsController
                                       if (onUpdateLevel != null) {
                                         onUpdateLevel!(selectedItem);
                                       } else {
@@ -492,17 +513,82 @@ class ListTileApp extends StatelessWidget {
   }
 
   void _showDatePicker(BuildContext context) async {
+    const int minimalAge = 18;
+    final DateTime now = DateTime.now();
+    final DateTime maxDate =
+        DateTime(now.year - minimalAge, now.month, now.day);
+    final DateTime initialDate = maxDate;
+    final DateTime lastDate = maxDate;
+
     DateTime? selectedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: initialDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
+      lastDate: lastDate,
+      selectableDayPredicate: (DateTime date) {
+        // Blokir under 18
+        return date.isBefore(lastDate.add(const Duration(days: 1)));
+      },
+      helpText: 'Pilih Tanggal Lahir (Minimal 18 Tahun)',
+      cancelText: 'Batal',
+      confirmText: 'Pilih',
+      errorFormatText: 'Format tanggal tidak valid',
+      errorInvalidText: 'Minimal usia $minimalAge tahun',
+      fieldHintText: 'DD/MM/YYYY',
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.blueAccent,
+              onPrimary: Colors.white,
+            ),
+            dialogTheme: const DialogThemeData(backgroundColor: Colors.white),
+          ),
+          child: child!,
+        );
+      },
     );
+
     if (selectedDate != null) {
-      final formattedDate = "${selectedDate.day.toString().padLeft(2, '0')}-"
-          "${selectedDate.month.toString().padLeft(2, '0')}-"
-          "${selectedDate.year}";
-      AppLogger.d('Date selected: $formattedDate');
+      // Validasi tambahan
+      final age = now.year -
+          selectedDate.year -
+          ((now.month > selectedDate.month ||
+                  (now.month == selectedDate.month &&
+                      now.day >= selectedDate.day))
+              ? 0
+              : 1);
+
+      if (age < minimalAge) {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Minimal usia $minimalAge tahun'.tr),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      // Format tanggal tanpa waktu
+      final cleanDate = DateTime(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day,
+      );
+
+      final formattedDate = DateFormat('dd-MM-yyyy').format(cleanDate);
+
+      final actualAge = now.year -
+          selectedDate.year -
+          ((now.month > selectedDate.month ||
+                  (now.month == selectedDate.month &&
+                      now.day >= selectedDate.day))
+              ? 0
+              : 1);
+
+      AppLogger.d('Tanggal lahir valid: $formattedDate');
+      AppLogger.d('Usia: $actualAge');
       if (onSubmitText != null) onSubmitText!(formattedDate);
     }
   }
@@ -523,6 +609,7 @@ class ListTileApp extends StatelessWidget {
 
     showModalBottomSheet(
       showDragHandle: true,
+      enableDrag: false,
       context: context,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
@@ -547,8 +634,6 @@ class ListTileApp extends StatelessWidget {
                             setState(() => selectedLanguage = "Indonesia");
                             Get.updateLocale(const Locale('id', 'ID'));
                             LocalStorageService.setLanguage("Indonesia");
-                            // Misalnya, panggil callback jika diperlukan
-                            // if (onSubmitText != null) onSubmitText!("Indonesia");
                             Navigator.pop(context);
                           },
                           child: Container(

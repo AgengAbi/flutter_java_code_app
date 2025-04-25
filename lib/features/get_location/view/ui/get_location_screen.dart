@@ -34,7 +34,7 @@ class GetLocationScreen extends StatelessWidget {
                     ? 'Lokasi terverifikasi'.tr
                     : 'Mencari lokasi saat ini'.tr,
                 style: Get.textTheme.titleLarge!
-                    .copyWith(color: ColorStyle.dark.withOpacity(0.5)),
+                    .copyWith(color: ColorStyle.dark.withValues(alpha: 0.5)),
                 textAlign: TextAlign.center,
               );
             }),

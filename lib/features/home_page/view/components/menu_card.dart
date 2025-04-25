@@ -46,7 +46,7 @@ class MenuCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: ColorStyle.dark.withOpacity(0.5),
+            color: ColorStyle.dark.withValues(alpha: 0.5),
             offset: const Offset(0, 2),
             blurRadius: 8,
           ),

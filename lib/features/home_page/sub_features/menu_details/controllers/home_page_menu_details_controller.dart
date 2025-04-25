@@ -10,7 +10,6 @@ class HomePageMenuDetailsController extends GetxController {
   static HomePageMenuDetailsController get to => Get.find();
 
   final RxBool isLoading = true.obs;
-  // Gunakan Rx untuk menyimpan referensi instance menu yang sama
   final Rx<MenuUI?> selectedMenuDetail = Rx<MenuUI?>(null);
 
   @override
@@ -18,9 +17,7 @@ class HomePageMenuDetailsController extends GetxController {
     super.onInit();
     final args = Get.arguments;
     if (args != null && args['menuUI'] != null) {
-      // Dapatkan menu yang dipassing lewat argument
       MenuUI passedMenu = args['menuUI'] as MenuUI;
-      // Cari referensi yang sama di list menu HomePageController
       final menuInHomePage = HomePageController.to.menus
           .firstWhereOrNull((m) => m.idMenu == passedMenu.idMenu);
       if (menuInHomePage != null) {
@@ -29,7 +26,6 @@ class HomePageMenuDetailsController extends GetxController {
         AppLogger.d(
             'onInit menu: ${menuInHomePage.idMenu} - ${menuInHomePage.nama}');
       } else {
-        // Jika tidak ditemukan, fallback ke passedMenu
         selectedMenuDetail.value = passedMenu;
         fetchMenuDetail(passedMenu);
         AppLogger.d(
@@ -41,7 +37,6 @@ class HomePageMenuDetailsController extends GetxController {
     }
   }
 
-  // Ambil detail menu dari API dan perbarui instance menu melalui updateForm
   Future<void> fetchMenuDetail(MenuUI menu) async {
     final result = await MenuDetailsRepository.fetchDetailMenu(menu.idMenu);
     result.fold(
@@ -51,9 +46,7 @@ class HomePageMenuDetailsController extends GetxController {
       },
       (menuDetail) {
         AppLogger.d('Menu detail fetched');
-        // Update instance menu yang sama dengan data detail baru
         menu.updateForm(menuDetail);
-        // Perbarui list menu di HomePageController jika diperlukan
         HomePageController.to.menus.refresh();
         selectedMenuDetail.refresh();
         isLoading(false);

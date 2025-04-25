@@ -1,3 +1,4 @@
+import 'package:flutter_java_code_app/features/checkout/controllers/checkout_controller.dart';
 import 'package:flutter_java_code_app/features/home_page/controllers/home_page_controller.dart';
 import 'package:flutter_java_code_app/features/home_page/sub_features/menu_details/controllers/home_page_menu_details_controller.dart';
 import 'package:flutter_java_code_app/features/home_page/sub_features/promo_details/controllers/home_page_promo_details_controller.dart';
@@ -21,5 +22,6 @@ class HomePageMenuDetailsBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => HomePageMenuDetailsController());
+    Get.lazyPut(() => CheckoutController());
   }
 }

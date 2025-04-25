@@ -16,32 +16,37 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: UniversalAppBar(
-              showSearch: true,
-              onSearchChanged: (value) => HomePageController.to.keyword(value),
-            ),
-            body: SmartRefresher(
-              controller: HomePageController.to.homeRefreshController,
-              enablePullDown: true,
-              onRefresh: () async {
-                HomePageController.to.getHomePageData();
-                HomePageController.to.homeRefreshController.refreshCompleted();
-              },
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const PromoContent(),
-                    // Body Content
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.w, vertical: 20.h),
-                      child: const MenuContent(),
-                    ),
-                  ],
-                ),
+        child: GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+          appBar: UniversalAppBar(
+            showSearch: true,
+            onSearchChanged: (value) => HomePageController.to.keyword(value),
+          ),
+          body: SmartRefresher(
+            controller: HomePageController.to.homeRefreshController,
+            enablePullDown: true,
+            onRefresh: () async {
+              HomePageController.to.getHomePageData();
+              HomePageController.to.homeRefreshController.refreshCompleted();
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const PromoContent(),
+                  // Body Content
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    child: const MenuContent(),
+                  ),
+                ],
               ),
             ),
-            floatingActionButton: const FloatingActionButtonCart()));
+          ),
+          floatingActionButton: const FloatingActionButtonCart()),
+    ));
   }
 }

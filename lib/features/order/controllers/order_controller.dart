@@ -99,6 +99,9 @@ class OrderController extends GetxController {
         DateTime.parse(order.tanggal)
             .isAfter(selectedDateRangeOnHistory.value.end));
 
+    historyOrderList.removeWhere(
+        (order) => DateTime.parse(order.tanggal).isAfter(DateTime.now()));
+
     historyOrderList.sort((a, b) {
       final dateA = DateTime.tryParse(a.tanggal) ?? DateTime(0);
       final dateB = DateTime.tryParse(b.tanggal) ?? DateTime(0);
@@ -125,6 +128,9 @@ class OrderController extends GetxController {
         DateTime.parse(order.tanggal)
             .isAfter(selectedDateRangeOnGoing.value.end));
 
+    onGoingOrderList.removeWhere(
+        (order) => DateTime.parse(order.tanggal).isAfter(DateTime.now()));
+
     onGoingOrderList.sort((a, b) {
       final dateA = DateTime.tryParse(a.tanggal) ?? DateTime(0);
       final dateB = DateTime.tryParse(b.tanggal) ?? DateTime(0);
@@ -135,13 +141,33 @@ class OrderController extends GetxController {
   }
 
   void setDateFilterHistory({String? category, DateTimeRange? range}) {
+    if (range != null) {
+      final startDate =
+          range.start.isAfter(DateTime.now()) ? DateTime.now() : range.start;
+      final endDate =
+          range.end.isAfter(DateTime.now()) ? DateTime.now() : range.end;
+
+      selectedDateRangeOnHistory(DateTimeRange(
+        start: startDate,
+        end: endDate,
+      ));
+    }
     selectedCategoryOnHistory(category);
-    selectedDateRangeOnHistory(range);
   }
 
   void setDateFilterOnGoing({String? category, DateTimeRange? range}) {
+    if (range != null) {
+      final startDate =
+          range.start.isAfter(DateTime.now()) ? DateTime.now() : range.start;
+      final endDate =
+          range.end.isAfter(DateTime.now()) ? DateTime.now() : range.end;
+
+      selectedDateRangeOnGoing(DateTimeRange(
+        start: startDate,
+        end: endDate,
+      ));
+    }
     selectedCategoryOnGoing(category);
-    selectedDateRangeOnGoing(range);
   }
 
   String get totalHistoryOrder {

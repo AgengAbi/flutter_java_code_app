@@ -139,6 +139,9 @@ class MenuDetailsScreen extends StatelessWidget {
                   subtitle: menu.note ?? '',
                   bottomSheetFormType: BottomSheetFormType.textForm,
                   textFormArgument: menu.note ?? '',
+                  onSubmitText: (newNote) {
+                    HomePageMenuDetailsController.to.updateMenuNote(newNote);
+                  },
                 ),
                 const Divider(),
                 32.verticalSpace,

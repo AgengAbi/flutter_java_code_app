@@ -18,7 +18,7 @@ class AppTheme {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: ColorStyle.primary.withOpacity(0.5),
+            color: ColorStyle.primary.withValues(alpha: 0.5),
             width: 1.5,
           ),
         ),
@@ -30,7 +30,7 @@ class AppTheme {
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: ColorStyle.primary.withOpacity(0.5),
+            color: ColorStyle.primary.withValues(alpha: 0.5),
             width: 1.5,
           ),
         ),

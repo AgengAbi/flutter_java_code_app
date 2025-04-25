@@ -23,7 +23,9 @@ class ChoiceChipApp extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: selected ? Colors.blue : Colors.grey),
           borderRadius: BorderRadius.circular(8),
-          color: selected ? Colors.blue.withOpacity(0.2) : Colors.transparent,
+          color: selected
+              ? Colors.blue.withValues(alpha: 0.2)
+              : Colors.transparent,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
